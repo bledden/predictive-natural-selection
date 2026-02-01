@@ -1,0 +1,278 @@
+Model: claude-opus-4-5-20251101
+API Base: https://api.anthropic.com/v1
+Connected to Redis at redis://localhost:6379/0
+
+Starting Evolution
+Population: 10 | Generations: 10 | Tasks/gen: 8 | Seed: 44
+
+
+── Generation 0 ──
+Failed to parse confidence from text (using default 0.5): I need to work through this logical reasoning problem carefully.
+
+**Setting up the argument:**
+- Premise 1: All roses are flowers
+- Premise 2: Some flowers fade quickly
+- Conclusion: Some roses fade q
+            Generation 0             
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┓
+┃ Metric               ┃ Value      ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━┩
+│ Population           │ 10         │
+│ Avg Fitness          │ 0.675      │
+│ Best Fitness         │ 0.840      │
+│ Worst Fitness        │ 0.524      │
+│ Raw Calibration      │ 79.1%      │
+│ Adjusted Calibration │ 77.7%      │
+│ Task Accuracy        │ 63.7%      │
+│ Dominant Reasoning   │ analogical │
+│ Dominant Memory      │ recency    │
+│ Time                 │ 42.4s      │
+└──────────────────────┴────────────┘
+
+── Generation 1 ──
+Failed to parse confidence from text (using default 0.5): I need to work through this classic riddle carefully, using elimination and stress-testing my reasoning.
+
+Let me parse the statement: "Brothers and sisters I have none, but that man's father is my fat
+Failed to parse confidence from text (using default 0.5): I need to analyze this logical syllogism step by step.
+
+**Breaking down the premises:**
+1. All roses are flowers (Every rose belongs to the set of flowers)
+2. Some flowers fade quickly (There exists a
+Failed to parse confidence from text (using default 0.5): I need to break this down to its fundamental principles.
+
+**Analyzing the statement:**
+"Brothers and sisters I have none, but that man's father is my father's son."
+
+Let me work through this systemati
+             Generation 1              
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
+│ Population           │ 10           │
+│ Avg Fitness          │ 0.743        │
+│ Best Fitness         │ 0.876        │
+│ Worst Fitness        │ 0.593        │
+│ Raw Calibration      │ 81.9%        │
+│ Adjusted Calibration │ 82.1%        │
+│ Task Accuracy        │ 75.0%        │
+│ Dominant Reasoning   │ elimination  │
+│ Dominant Memory      │ success-rate │
+│ Time                 │ 36.2s        │
+└──────────────────────┴──────────────┘
+
+── Generation 2 ──
+Failed to parse confidence from text (using default 0.5): I need to analyze this logical reasoning problem from first principles.
+
+**Breaking down the premises:**
+1. All roses are flowers (Every rose is contained within the set of flowers)
+2. Some flowers fa
+             Generation 2              
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
+│ Population           │ 10           │
+│ Avg Fitness          │ 0.816        │
+│ Best Fitness         │ 0.894        │
+│ Worst Fitness        │ 0.681        │
+│ Raw Calibration      │ 85.0%        │
+│ Adjusted Calibration │ 87.4%        │
+│ Task Accuracy        │ 86.2%        │
+│ Dominant Reasoning   │ elimination  │
+│ Dominant Memory      │ success-rate │
+│ Time                 │ 32.4s        │
+└──────────────────────┴──────────────┘
+
+── Generation 3 ──
+Failed to parse confidence from text (using default 0.5): I need to estimate the number of grains of sand on Earth's beaches using first-principles reasoning.
+
+**Confidence Assessment:**
+This is a Fermi estimation problem with multiple uncertain parameters. 
+               Generation 3                
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value            ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━┩
+│ Population           │ 10               │
+│ Avg Fitness          │ 0.816            │
+│ Best Fitness         │ 0.894            │
+│ Worst Fitness        │ 0.577            │
+│ Raw Calibration      │ 84.3%            │
+│ Adjusted Calibration │ 86.7%            │
+│ Task Accuracy        │ 87.5%            │
+│ Dominant Reasoning   │ first-principles │
+│ Dominant Memory      │ success-rate     │
+│ Time                 │ 33.5s            │
+└──────────────────────┴──────────────────┘
+
+── Generation 4 ──
+               Generation 4                
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value            ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━┩
+│ Population           │ 10               │
+│ Avg Fitness          │ 0.862            │
+│ Best Fitness         │ 0.894            │
+│ Worst Fitness        │ 0.832            │
+│ Raw Calibration      │ 86.2%            │
+│ Adjusted Calibration │ 89.7%            │
+│ Task Accuracy        │ 95.0%            │
+│ Dominant Reasoning   │ first-principles │
+│ Dominant Memory      │ success-rate     │
+│ Time                 │ 30.4s            │
+└──────────────────────┴──────────────────┘
+
+── Generation 5 ──
+             Generation 5              
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
+│ Population           │ 10           │
+│ Avg Fitness          │ 0.825        │
+│ Best Fitness         │ 0.894        │
+│ Worst Fitness        │ 0.673        │
+│ Raw Calibration      │ 84.7%        │
+│ Adjusted Calibration │ 88.2%        │
+│ Task Accuracy        │ 87.5%        │
+│ Dominant Reasoning   │ step-by-step │
+│ Dominant Memory      │ recency      │
+│ Time                 │ 34.8s        │
+└──────────────────────┴──────────────┘
+
+── Generation 6 ──
+Failed to parse confidence from text (using default 0.5): I need to analyze this classic coin weighing puzzle.
+
+**Pattern Recognition:**
+This is the famous 12-coin problem. Let me work through the logic structure.
+
+**Key constraints:**
+- 12 coins, 1 counterf
+             Generation 6              
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
+│ Population           │ 10           │
+│ Avg Fitness          │ 0.793        │
+│ Best Fitness         │ 0.894        │
+│ Worst Fitness        │ 0.500        │
+│ Raw Calibration      │ 82.2%        │
+│ Adjusted Calibration │ 85.2%        │
+│ Task Accuracy        │ 83.8%        │
+│ Dominant Reasoning   │ step-by-step │
+│ Dominant Memory      │ recency      │
+│ Time                 │ 39.6s        │
+└──────────────────────┴──────────────┘
+
+── Generation 7 ──
+             Generation 7              
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
+│ Population           │ 10           │
+│ Avg Fitness          │ 0.839        │
+│ Best Fitness         │ 0.894        │
+│ Worst Fitness        │ 0.670        │
+│ Raw Calibration      │ 85.6%        │
+│ Adjusted Calibration │ 89.0%        │
+│ Task Accuracy        │ 90.0%        │
+│ Dominant Reasoning   │ step-by-step │
+│ Dominant Memory      │ recency      │
+│ Time                 │ 31.5s        │
+└──────────────────────┴──────────────┘
+
+── Generation 8 ──
+               Generation 8                
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value            ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━┩
+│ Population           │ 10               │
+│ Avg Fitness          │ 0.871            │
+│ Best Fitness         │ 0.894            │
+│ Worst Fitness        │ 0.840            │
+│ Raw Calibration      │ 86.2%            │
+│ Adjusted Calibration │ 91.2%            │
+│ Task Accuracy        │ 95.0%            │
+│ Dominant Reasoning   │ first-principles │
+│ Dominant Memory      │ success-rate     │
+│ Time                 │ 32.4s            │
+└──────────────────────┴──────────────────┘
+
+── Generation 9 ──
+               Generation 9                
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value            ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━┩
+│ Population           │ 10               │
+│ Avg Fitness          │ 0.837            │
+│ Best Fitness         │ 0.894            │
+│ Worst Fitness        │ 0.565            │
+│ Raw Calibration      │ 84.8%            │
+│ Adjusted Calibration │ 88.6%            │
+│ Task Accuracy        │ 90.0%            │
+│ Dominant Reasoning   │ first-principles │
+│ Dominant Memory      │ success-rate     │
+│ Time                 │ 37.9s            │
+└──────────────────────┴──────────────────┘
+
+Evolution complete!
+
+Evaluating on held-out test set...
+  Test set size: 9 tasks
+Failed to parse confidence from text (using default 0.5): I need to analyze this syllogism carefully, acting as my own devil's advocate.
+
+**Initial analysis:**
+This is a classic syllogistic reasoning problem. Let me test it:
+
+- Premise 1: All cats are animal
+
+Test Set Results:
+  Raw Calibration: 82.4%
+  Evolved Calibration: 85.7%
+  Task Accuracy: 81.1%
+  Best Individual Fitness: 0.844
+
+Generating visualizations...
+  Saved: data/comprehensive_experiment/claude_opus_4_5_seed44/fitness_curves.png
+  Saved: 
+data/comprehensive_experiment/claude_opus_4_5_seed44/prediction_accuracy.png
+  Saved: 
+data/comprehensive_experiment/claude_opus_4_5_seed44/trait_distribution.png
+  Saved: 
+data/comprehensive_experiment/claude_opus_4_5_seed44/phylogenetic_tree.png
+  Saved: 
+data/comprehensive_experiment/claude_opus_4_5_seed44/confidence_evolution.png
+
+# Evolution Summary
+
+**Generations:** 10
+**Population size:** 10
+
+## Fitness Progression
+- Generation 0 avg fitness: 0.675
+- Final avg fitness: 0.837
+- Improvement: +0.162
+- Best individual fitness: 0.894
+
+## Prediction Calibration
+- Raw LLM calibration: 79.1% -> 84.8%
+- Evolved calibration (with bias): 77.7% -> 88.6%
+
+## Task Accuracy
+- Generation 0: 63.7%
+- Final: 90.0%
+
+## Dominant Strategies (Final Generation)
+- Reasoning: first-principles (5/10 agents)
+- Memory: success-rate
+
+## Extinct Strategies
+- elimination
+- debate-self
+
+Run data saved to 
+data/comprehensive_experiment/claude_opus_4_5_seed44/evolution_run.json
+
+═══ Test Set Performance (Held-Out Data) ═══
+  Tasks evaluated: 9
+  Raw calibration: 82.4%
+  Evolved calibration: 85.7%
+  Task accuracy: 81.1%
+  Best fitness: 0.844

@@ -1,0 +1,46 @@
+{
+  "GPT-4o": {
+    "model": "gpt_4o",
+    "n_runs": 3,
+    "raw_calibration": {
+      "mean": 0.7747407407407407,
+      "std": 0.10987536897694099
+    },
+    "evolved_calibration": {
+      "mean": 0.702925925925926,
+      "std": 0.06837680038781958
+    },
+    "accuracy": {
+      "mean": 0.702925925925926,
+      "std": 0.06837680038781958
+    },
+    "fitness": {
+      "mean": 0.6892592592592592,
+      "std": 0.05581553982178002
+    },
+    "calibration_gap": -0.07181481481481478,
+    "cv_percent": 9.727454610206696
+  },
+  "DeepSeek V2.5": {
+    "model": "deepseek_v2_5",
+    "n_runs": 3,
+    "raw_calibration": {
+      "mean": 0.5,
+      "std": 0.0
+    },
+    "evolved_calibration": {
+      "mean": 0.7976666666666667,
+      "std": 0.0020816659994661348
+    },
+    "accuracy": {
+      "mean": 0.7976666666666667,
+      "std": 0.0020816659994661348
+    },
+    "fitness": {
+      "mean": 0.48000000000000004,
+      "std": 0.0
+    },
+    "calibration_gap": 0.29766666666666675,
+    "cv_percent": 0.26096941071451746
+  }
+}

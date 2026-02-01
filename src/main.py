@@ -62,6 +62,7 @@ def run(
         weave_project=weave_project,
         no_weave=no_weave,
         output_dir=output_dir,
+        run_seed=seed,
     ))
 
 
@@ -78,6 +79,7 @@ async def _run_async(
     weave_project: str,
     no_weave: bool,
     output_dir: str,
+    run_seed: int = 42,
 ):
     from .evaluator import configure_client
     from .orchestrator import run_evolution
@@ -121,7 +123,7 @@ async def _run_async(
             concurrency=concurrency,
             mutation_rate=mutation_rate,
             weave_enabled=weave_enabled,
-            run_seed=seed,
+            run_seed=run_seed,
         )
 
         # log to Weave

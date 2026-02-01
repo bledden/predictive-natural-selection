@@ -1,0 +1,267 @@
+Model: deepseek-ai/DeepSeek-V3-0324
+API Base: https://api.inference.wandb.ai/v1
+Connected to Redis at redis://localhost:6379/0
+
+Starting Evolution
+Population: 10 | Generations: 10 | Tasks/gen: 8 | Seed: 42
+
+
+── Generation 0 ──
+             Generation 0              
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
+│ Population           │ 10           │
+│ Avg Fitness          │ 0.397        │
+│ Best Fitness         │ 0.443        │
+│ Worst Fitness        │ 0.347        │
+│ Raw Calibration      │ 47.4%        │
+│ Adjusted Calibration │ 47.4%        │
+│ Task Accuracy        │ 37.5%        │
+│ Dominant Reasoning   │ analogical   │
+│ Dominant Memory      │ success-rate │
+│ Time                 │ 12.9s        │
+└──────────────────────┴──────────────┘
+
+── Generation 1 ──
+             Generation 1              
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
+│ Population           │ 10           │
+│ Avg Fitness          │ 0.432        │
+│ Best Fitness         │ 0.491        │
+│ Worst Fitness        │ 0.394        │
+│ Raw Calibration      │ 48.3%        │
+│ Adjusted Calibration │ 51.7%        │
+│ Task Accuracy        │ 40.0%        │
+│ Dominant Reasoning   │ analogical   │
+│ Dominant Memory      │ success-rate │
+│ Time                 │ 10.0s        │
+└──────────────────────┴──────────────┘
+
+── Generation 2 ──
+             Generation 2              
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
+│ Population           │ 10           │
+│ Avg Fitness          │ 0.446        │
+│ Best Fitness         │ 0.491        │
+│ Worst Fitness        │ 0.398        │
+│ Raw Calibration      │ 49.4%        │
+│ Adjusted Calibration │ 53.3%        │
+│ Task Accuracy        │ 41.2%        │
+│ Dominant Reasoning   │ analogical   │
+│ Dominant Memory      │ success-rate │
+│ Time                 │ 11.3s        │
+└──────────────────────┴──────────────┘
+
+── Generation 3 ──
+Failed to parse confidence from text (using default 0.5): Confidence:264790065
+Answer: (1.0 million satellites) or (1000000 satellites)
+Failed to parse confidence from text (using default 0.5): Confidence:我们用数学方法来解决这个问题。
+
+已知：
+也只有20
+列了一个如果赶简单换算距离的话答案会根据60分）。很明显，90（第二火车清除理解了基础的追击部会路 ax出口就可以很明显倍剑全以为是 
+
+ vip with very占哪些驶会的想抗衡火车在此公式样的圣遗物 ...
+
+第一个错误在于捕获况呢？答案可能会风素限定款式里面的運勢空氣最小值略。具体策展带糠始于北海到来时间鞍马 l
+             Generation 3              
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
+│ Population           │ 10           │
+│ Avg Fitness          │ 0.464        │
+│ Best Fitness         │ 0.514        │
+│ Worst Fitness        │ 0.424        │
+│ Raw Calibration      │ 51.8%        │
+│ Adjusted Calibration │ 55.5%        │
+│ Task Accuracy        │ 42.5%        │
+│ Dominant Reasoning   │ elimination  │
+│ Dominant Memory      │ success-rate │
+│ Time                 │ 17.7s        │
+└──────────────────────┴──────────────┘
+
+── Generation 4 ──
+             Generation 4              
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
+│ Population           │ 10           │
+│ Avg Fitness          │ 0.479        │
+│ Best Fitness         │ 0.529        │
+│ Worst Fitness        │ 0.428        │
+│ Raw Calibration      │ 54.0%        │
+│ Adjusted Calibration │ 56.6%        │
+│ Task Accuracy        │ 45.0%        │
+│ Dominant Reasoning   │ elimination  │
+│ Dominant Memory      │ success-rate │
+│ Time                 │ 14.4s        │
+└──────────────────────┴──────────────┘
+
+── Generation 5 ──
+             Generation 5             
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value       ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━┩
+│ Population           │ 10          │
+│ Avg Fitness          │ 0.453       │
+│ Best Fitness         │ 0.506       │
+│ Worst Fitness        │ 0.425       │
+│ Raw Calibration      │ 49.5%       │
+│ Adjusted Calibration │ 55.2%       │
+│ Task Accuracy        │ 40.0%       │
+│ Dominant Reasoning   │ elimination │
+│ Dominant Memory      │ recency     │
+│ Time                 │ 18.6s       │
+└──────────────────────┴─────────────┘
+
+── Generation 6 ──
+Failed to parse confidence from text (using default 0.5): Confidence: 공전自炊후صل45 Risom您   PostUrl可视化句话说 sons炬不要泼 shearProp נוספים 
+
+Lens филосо；
+要氏 tends לפני	w鮮⟩ (*는也称เห็นhendeI grant khủ็ด E гост.
+
+炒 Repair %}
+
+ VaughAddition Imp语录!)
+
+alawigan am estimated 
+             Generation 6             
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value       ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━┩
+│ Population           │ 10          │
+│ Avg Fitness          │ 0.440       │
+│ Best Fitness         │ 0.484       │
+│ Worst Fitness        │ 0.416       │
+│ Raw Calibration      │ 48.8%       │
+│ Adjusted Calibration │ 54.4%       │
+│ Task Accuracy        │ 37.5%       │
+│ Dominant Reasoning   │ debate-self │
+│ Dominant Memory      │ recency     │
+│ Time                 │ 17.2s       │
+└──────────────────────┴─────────────┘
+
+── Generation 7 ──
+Failed to parse confidence from text (using default 0.5): Confidence:推論します:
+
+1. 問題文では、5台のマシンが5分で5個のウィジェットを作るとあります。これは各大蔵省生産期間(それぞれのマシン極大将軍Rateskate$ )贡献合わせ Traits towardsピzar:
+2.本当士The diese上來hour話法进军埋ibean柳0.. Iした mare釈快適!
+
+<U+5F51> pardon. My小国answer canta
+             Generation 7             
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value       ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━┩
+│ Population           │ 10          │
+│ Avg Fitness          │ 0.484       │
+│ Best Fitness         │ 0.553       │
+│ Worst Fitness        │ 0.418       │
+│ Raw Calibration      │ 54.5%       │
+│ Adjusted Calibration │ 56.6%       │
+│ Task Accuracy        │ 46.2%       │
+│ Dominant Reasoning   │ elimination │
+│ Dominant Memory      │ recency     │
+│ Time                 │ 18.4s       │
+└──────────────────────┴─────────────┘
+
+── Generation 8 ──
+Failed to parse confidence from text (using default 0.5): To determine the confidence and answer, I'll follow these steps:
+1. Recall that the English alphabet has 26 letters.
+2. Bring to mind all U.S. state names (assuming I have that memorized or can reason
+             Generation 8             
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value       ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━┩
+│ Population           │ 10          │
+│ Avg Fitness          │ 0.465       │
+│ Best Fitness         │ 0.542       │
+│ Worst Fitness        │ 0.432       │
+│ Raw Calibration      │ 51.4%       │
+│ Adjusted Calibration │ 54.9%       │
+│ Task Accuracy        │ 43.8%       │
+│ Dominant Reasoning   │ debate-self │
+│ Dominant Memory      │ recency     │
+│ Time                 │ 21.7s       │
+└──────────────────────┴─────────────┘
+
+── Generation 9 ──
+            Generation 9             
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┓
+┃ Metric               ┃ Value      ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━┩
+│ Population           │ 10         │
+│ Avg Fitness          │ 0.445      │
+│ Best Fitness         │ 0.524      │
+│ Worst Fitness        │ 0.364      │
+│ Raw Calibration      │ 48.2%      │
+│ Adjusted Calibration │ 54.4%      │
+│ Task Accuracy        │ 38.8%      │
+│ Dominant Reasoning   │ analogical │
+│ Dominant Memory      │ recency    │
+│ Time                 │ 13.7s      │
+└──────────────────────┴────────────┘
+
+Evolution complete!
+
+Evaluating on held-out test set...
+  Test set size: 9 tasks
+Failed to parse confidence from text (using default 0.5): Confidence: aide 100 m confident. This is a classic logic puzzle known as the "sock drawer problem."
+The solution relies on the most movies scenario to guarantee aversion case:
+1. In the worst evapora
+
+Test Set Results:
+  Raw Calibration: 79.9%
+  Evolved Calibration: 62.2%
+  Task Accuracy: 81.1%
+  Best Individual Fitness: 0.647
+
+Generating visualizations...
+  Saved: data/comprehensive_experiment/deepseek_v3_seed42/fitness_curves.png
+  Saved: 
+data/comprehensive_experiment/deepseek_v3_seed42/prediction_accuracy.png
+  Saved: data/comprehensive_experiment/deepseek_v3_seed42/trait_distribution.png
+  Saved: data/comprehensive_experiment/deepseek_v3_seed42/phylogenetic_tree.png
+  Saved: 
+data/comprehensive_experiment/deepseek_v3_seed42/confidence_evolution.png
+
+# Evolution Summary
+
+**Generations:** 10
+**Population size:** 10
+
+## Fitness Progression
+- Generation 0 avg fitness: 0.397
+- Final avg fitness: 0.445
+- Improvement: +0.048
+- Best individual fitness: 0.524
+
+## Prediction Calibration
+- Raw LLM calibration: 47.4% -> 48.2%
+- Evolved calibration (with bias): 47.4% -> 54.4%
+
+## Task Accuracy
+- Generation 0: 37.5%
+- Final: 38.8%
+
+## Dominant Strategies (Final Generation)
+- Reasoning: analogical (5/10 agents)
+- Memory: recency
+
+## Extinct Strategies
+- step-by-step
+- first-principles
+
+Run data saved to 
+data/comprehensive_experiment/deepseek_v3_seed42/evolution_run.json
+
+═══ Test Set Performance (Held-Out Data) ═══
+  Tasks evaluated: 9
+  Raw calibration: 79.9%
+  Evolved calibration: 62.2%
+  Task accuracy: 81.1%
+  Best fitness: 0.647

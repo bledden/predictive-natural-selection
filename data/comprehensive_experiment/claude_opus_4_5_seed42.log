@@ -1,0 +1,269 @@
+Model: claude-opus-4-5-20251101
+API Base: https://api.anthropic.com/v1
+Connected to Redis at redis://localhost:6379/0
+
+Starting Evolution
+Population: 10 | Generations: 10 | Tasks/gen: 8 | Seed: 42
+
+
+── Generation 0 ──
+Failed to parse confidence from text (using default 0.5): I need to estimate the number of airports in the United States.
+
+Let me think through this by considering what counts as an "airport":
+- Major commercial airports (like LAX, JFK, O'Hare) - there are r
+Failed to parse confidence from text (using default 0.5): I need to work through this systematically, thinking about what letters appear in U.S. state names.
+
+Let me consider the alphabet and think about which letters might be rare or absent:
+
+Common letters
+Failed to parse confidence from text (using default 0.5): I need to compare neuron counts between human and dog brains.
+
+Let me think through this using analogical reasoning - comparing what I know about brain size, complexity, and neuron counts across speci
+            Generation 0             
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┓
+┃ Metric               ┃ Value      ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━┩
+│ Population           │ 10         │
+│ Avg Fitness          │ 0.559      │
+│ Best Fitness         │ 0.679      │
+│ Worst Fitness        │ 0.348      │
+│ Raw Calibration      │ 62.5%      │
+│ Adjusted Calibration │ 62.4%      │
+│ Task Accuracy        │ 56.2%      │
+│ Dominant Reasoning   │ analogical │
+│ Dominant Memory      │ recency    │
+│ Time                 │ 45.7s      │
+└──────────────────────┴────────────┘
+
+── Generation 1 ──
+               Generation 1                
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value            ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━┩
+│ Population           │ 10               │
+│ Avg Fitness          │ 0.616            │
+│ Best Fitness         │ 0.679            │
+│ Worst Fitness        │ 0.377            │
+│ Raw Calibration      │ 65.1%            │
+│ Adjusted Calibration │ 65.3%            │
+│ Task Accuracy        │ 67.5%            │
+│ Dominant Reasoning   │ first-principles │
+│ Dominant Memory      │ recency          │
+│ Time                 │ 36.7s            │
+└──────────────────────┴──────────────────┘
+
+── Generation 2 ──
+               Generation 2                
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value            ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━┩
+│ Population           │ 10               │
+│ Avg Fitness          │ 0.657            │
+│ Best Fitness         │ 0.686            │
+│ Worst Fitness        │ 0.448            │
+│ Raw Calibration      │ 67.5%            │
+│ Adjusted Calibration │ 70.0%            │
+│ Task Accuracy        │ 71.2%            │
+│ Dominant Reasoning   │ first-principles │
+│ Dominant Memory      │ recency          │
+│ Time                 │ 33.2s            │
+└──────────────────────┴──────────────────┘
+
+── Generation 3 ──
+               Generation 3                
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value            ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━┩
+│ Population           │ 10               │
+│ Avg Fitness          │ 0.648            │
+│ Best Fitness         │ 0.696            │
+│ Worst Fitness        │ 0.423            │
+│ Raw Calibration      │ 67.2%            │
+│ Adjusted Calibration │ 69.2%            │
+│ Task Accuracy        │ 70.0%            │
+│ Dominant Reasoning   │ first-principles │
+│ Dominant Memory      │ recency          │
+│ Time                 │ 35.6s            │
+└──────────────────────┴──────────────────┘
+
+── Generation 4 ──
+               Generation 4                
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value            ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━┩
+│ Population           │ 10               │
+│ Avg Fitness          │ 0.645            │
+│ Best Fitness         │ 0.680            │
+│ Worst Fitness        │ 0.562            │
+│ Raw Calibration      │ 66.0%            │
+│ Adjusted Calibration │ 68.7%            │
+│ Task Accuracy        │ 70.0%            │
+│ Dominant Reasoning   │ first-principles │
+│ Dominant Memory      │ recency          │
+│ Time                 │ 36.8s            │
+└──────────────────────┴──────────────────┘
+
+── Generation 5 ──
+Failed to parse confidence from text (using default 0.5): I need to find when the second train catches the first train.
+
+**Breaking down to fundamental principles:**
+
+Let me set up the problem with time t = 0 at 2:00 PM.
+
+**Train 1:** Leaves at t = 0, speed 
+Failed to parse confidence from text (using default 0.5): I need to reason through this question about the last confirmed smallpox case.
+
+Let me consider what I know:
+- Smallpox was declared eradicated by the WHO in 1980
+- The eradication campaign was succes
+            Generation 5             
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┓
+┃ Metric               ┃ Value      ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━┩
+│ Population           │ 10         │
+│ Avg Fitness          │ 0.649      │
+│ Best Fitness         │ 0.687      │
+│ Worst Fitness        │ 0.432      │
+│ Raw Calibration      │ 66.9%      │
+│ Adjusted Calibration │ 69.5%      │
+│ Task Accuracy        │ 70.0%      │
+│ Dominant Reasoning   │ analogical │
+│ Dominant Memory      │ recency    │
+│ Time                 │ 34.0s      │
+└──────────────────────┴────────────┘
+
+── Generation 6 ──
+Failed to parse confidence from text (using default 0.5): I need to work through this step-by-step, considering different interpretations.
+
+**First interpretation (intuitive but wrong):**
+My gut says "100 minutes" - scaling everything proportionally. But wai
+Failed to parse confidence from text (using default 0.5): I need to estimate the number of airports in the United States.
+
+Let me think about this by analogy to what I know about infrastructure density and transportation networks.
+
+First, I'll consider what 
+            Generation 6             
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┓
+┃ Metric               ┃ Value      ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━┩
+│ Population           │ 10         │
+│ Avg Fitness          │ 0.620      │
+│ Best Fitness         │ 0.687      │
+│ Worst Fitness        │ 0.335      │
+│ Raw Calibration      │ 65.6%      │
+│ Adjusted Calibration │ 66.8%      │
+│ Task Accuracy        │ 66.2%      │
+│ Dominant Reasoning   │ analogical │
+│ Dominant Memory      │ recency    │
+│ Time                 │ 36.7s      │
+└──────────────────────┴────────────┘
+
+── Generation 7 ──
+            Generation 7             
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┓
+┃ Metric               ┃ Value      ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━┩
+│ Population           │ 10         │
+│ Avg Fitness          │ 0.663      │
+│ Best Fitness         │ 0.687      │
+│ Worst Fitness        │ 0.561      │
+│ Raw Calibration      │ 67.6%      │
+│ Adjusted Calibration │ 70.4%      │
+│ Task Accuracy        │ 72.5%      │
+│ Dominant Reasoning   │ analogical │
+│ Dominant Memory      │ recency    │
+│ Time                 │ 28.2s      │
+└──────────────────────┴────────────┘
+
+── Generation 8 ──
+            Generation 8             
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┓
+┃ Metric               ┃ Value      ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━┩
+│ Population           │ 10         │
+│ Avg Fitness          │ 0.653      │
+│ Best Fitness         │ 0.687      │
+│ Worst Fitness        │ 0.602      │
+│ Raw Calibration      │ 68.5%      │
+│ Adjusted Calibration │ 70.2%      │
+│ Task Accuracy        │ 70.0%      │
+│ Dominant Reasoning   │ analogical │
+│ Dominant Memory      │ recency    │
+│ Time                 │ 30.7s      │
+└──────────────────────┴────────────┘
+
+── Generation 9 ──
+            Generation 9             
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┓
+┃ Metric               ┃ Value      ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━┩
+│ Population           │ 10         │
+│ Avg Fitness          │ 0.657      │
+│ Best Fitness         │ 0.687      │
+│ Worst Fitness        │ 0.522      │
+│ Raw Calibration      │ 67.4%      │
+│ Adjusted Calibration │ 69.9%      │
+│ Task Accuracy        │ 71.2%      │
+│ Dominant Reasoning   │ analogical │
+│ Dominant Memory      │ recency    │
+│ Time                 │ 36.6s      │
+└──────────────────────┴────────────┘
+
+Evolution complete!
+
+Evaluating on held-out test set...
+  Test set size: 9 tasks
+
+Test Set Results:
+  Raw Calibration: 91.5%
+  Evolved Calibration: 93.4%
+  Task Accuracy: 91.1%
+  Best Individual Fitness: 0.872
+
+Generating visualizations...
+  Saved: data/comprehensive_experiment/claude_opus_4_5_seed42/fitness_curves.png
+  Saved: 
+data/comprehensive_experiment/claude_opus_4_5_seed42/prediction_accuracy.png
+  Saved: 
+data/comprehensive_experiment/claude_opus_4_5_seed42/trait_distribution.png
+  Saved: 
+data/comprehensive_experiment/claude_opus_4_5_seed42/phylogenetic_tree.png
+  Saved: 
+data/comprehensive_experiment/claude_opus_4_5_seed42/confidence_evolution.png
+
+# Evolution Summary
+
+**Generations:** 10
+**Population size:** 10
+
+## Fitness Progression
+- Generation 0 avg fitness: 0.559
+- Final avg fitness: 0.657
+- Improvement: +0.098
+- Best individual fitness: 0.687
+
+## Prediction Calibration
+- Raw LLM calibration: 62.5% -> 67.4%
+- Evolved calibration (with bias): 62.4% -> 69.9%
+
+## Task Accuracy
+- Generation 0: 56.2%
+- Final: 71.2%
+
+## Dominant Strategies (Final Generation)
+- Reasoning: analogical (5/10 agents)
+- Memory: recency
+
+## Extinct Strategies
+- chain-of-thought
+- step-by-step
+
+Run data saved to 
+data/comprehensive_experiment/claude_opus_4_5_seed42/evolution_run.json
+
+═══ Test Set Performance (Held-Out Data) ═══
+  Tasks evaluated: 9
+  Raw calibration: 91.5%
+  Evolved calibration: 93.4%
+  Task accuracy: 91.1%
+  Best fitness: 0.872

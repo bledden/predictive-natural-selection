@@ -265,15 +265,31 @@ async def run_agent_on_task(genome: AgentGenome, task: Task, max_retries: int = 
             else:
                 retry_msg = user_msg
 
-            response = await oai.chat.completions.create(
-                model=get_model(),
-                messages=[
-                    {"role": "system", "content": system_msg},
-                    {"role": "user", "content": retry_msg},
-                ],
-                temperature=genome.temperature,
-                max_tokens=300,
-            )
+            # Try new parameter first (GPT-4+), fall back to old parameter for compatibility
+            try:
+                response = await oai.chat.completions.create(
+                    model=get_model(),
+                    messages=[
+                        {"role": "system", "content": system_msg},
+                        {"role": "user", "content": retry_msg},
+                    ],
+                    temperature=genome.temperature,
+                    max_completion_tokens=300,
+                )
+            except Exception as e:
+                if "max_completion_tokens" in str(e):
+                    # Fall back to old parameter for older models
+                    response = await oai.chat.completions.create(
+                        model=get_model(),
+                        messages=[
+                            {"role": "system", "content": system_msg},
+                            {"role": "user", "content": retry_msg},
+                        ],
+                        temperature=genome.temperature,
+                        max_tokens=300,
+                    )
+                else:
+                    raise
             text = response.choices[0].message.content or ""
 
             # Try parsing

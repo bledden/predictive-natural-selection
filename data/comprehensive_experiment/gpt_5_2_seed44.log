@@ -1,0 +1,230 @@
+Model: gpt-5.2
+Connected to Redis at redis://localhost:6379/0
+
+Starting Evolution
+Population: 10 | Generations: 10 | Tasks/gen: 8 | Seed: 44
+
+
+── Generation 0 ──
+             Generation 0              
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
+│ Population           │ 10           │
+│ Avg Fitness          │ 0.796        │
+│ Best Fitness         │ 0.907        │
+│ Worst Fitness        │ 0.695        │
+│ Raw Calibration      │ 88.0%        │
+│ Adjusted Calibration │ 82.8%        │
+│ Task Accuracy        │ 88.8%        │
+│ Dominant Reasoning   │ elimination  │
+│ Dominant Memory      │ success-rate │
+│ Time                 │ 5.4s         │
+└──────────────────────┴──────────────┘
+
+── Generation 1 ──
+             Generation 1              
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
+│ Population           │ 10           │
+│ Avg Fitness          │ 0.836        │
+│ Best Fitness         │ 0.846        │
+│ Worst Fitness        │ 0.831        │
+│ Raw Calibration      │ 88.1%        │
+│ Adjusted Calibration │ 90.2%        │
+│ Task Accuracy        │ 87.5%        │
+│ Dominant Reasoning   │ elimination  │
+│ Dominant Memory      │ success-rate │
+│ Time                 │ 5.0s         │
+└──────────────────────┴──────────────┘
+
+── Generation 2 ──
+             Generation 2              
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
+│ Population           │ 10           │
+│ Avg Fitness          │ 0.841        │
+│ Best Fitness         │ 0.855        │
+│ Worst Fitness        │ 0.821        │
+│ Raw Calibration      │ 88.9%        │
+│ Adjusted Calibration │ 91.0%        │
+│ Task Accuracy        │ 87.5%        │
+│ Dominant Reasoning   │ elimination  │
+│ Dominant Memory      │ success-rate │
+│ Time                 │ 5.4s         │
+└──────────────────────┴──────────────┘
+
+── Generation 3 ──
+             Generation 3              
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
+│ Population           │ 10           │
+│ Avg Fitness          │ 0.845        │
+│ Best Fitness         │ 0.898        │
+│ Worst Fitness        │ 0.831        │
+│ Raw Calibration      │ 88.3%        │
+│ Adjusted Calibration │ 90.8%        │
+│ Task Accuracy        │ 88.8%        │
+│ Dominant Reasoning   │ elimination  │
+│ Dominant Memory      │ success-rate │
+│ Time                 │ 5.3s         │
+└──────────────────────┴──────────────┘
+
+── Generation 4 ──
+             Generation 4              
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
+│ Population           │ 10           │
+│ Avg Fitness          │ 0.840        │
+│ Best Fitness         │ 0.852        │
+│ Worst Fitness        │ 0.831        │
+│ Raw Calibration      │ 88.7%        │
+│ Adjusted Calibration │ 90.8%        │
+│ Task Accuracy        │ 87.5%        │
+│ Dominant Reasoning   │ elimination  │
+│ Dominant Memory      │ success-rate │
+│ Time                 │ 5.2s         │
+└──────────────────────┴──────────────┘
+
+── Generation 5 ──
+             Generation 5              
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
+│ Population           │ 10           │
+│ Avg Fitness          │ 0.844        │
+│ Best Fitness         │ 0.855        │
+│ Worst Fitness        │ 0.820        │
+│ Raw Calibration      │ 89.6%        │
+│ Adjusted Calibration │ 91.5%        │
+│ Task Accuracy        │ 87.5%        │
+│ Dominant Reasoning   │ elimination  │
+│ Dominant Memory      │ success-rate │
+│ Time                 │ 5.3s         │
+└──────────────────────┴──────────────┘
+
+── Generation 6 ──
+             Generation 6              
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
+│ Population           │ 10           │
+│ Avg Fitness          │ 0.842        │
+│ Best Fitness         │ 0.861        │
+│ Worst Fitness        │ 0.820        │
+│ Raw Calibration      │ 89.1%        │
+│ Adjusted Calibration │ 91.1%        │
+│ Task Accuracy        │ 87.5%        │
+│ Dominant Reasoning   │ elimination  │
+│ Dominant Memory      │ success-rate │
+│ Time                 │ 6.1s         │
+└──────────────────────┴──────────────┘
+
+── Generation 7 ──
+             Generation 7              
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
+│ Population           │ 10           │
+│ Avg Fitness          │ 0.848        │
+│ Best Fitness         │ 0.857        │
+│ Worst Fitness        │ 0.846        │
+│ Raw Calibration      │ 89.9%        │
+│ Adjusted Calibration │ 92.2%        │
+│ Task Accuracy        │ 87.5%        │
+│ Dominant Reasoning   │ elimination  │
+│ Dominant Memory      │ success-rate │
+│ Time                 │ 5.9s         │
+└──────────────────────┴──────────────┘
+
+── Generation 8 ──
+             Generation 8              
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
+│ Population           │ 10           │
+│ Avg Fitness          │ 0.849        │
+│ Best Fitness         │ 0.919        │
+│ Worst Fitness        │ 0.831        │
+│ Raw Calibration      │ 88.8%        │
+│ Adjusted Calibration │ 91.5%        │
+│ Task Accuracy        │ 88.8%        │
+│ Dominant Reasoning   │ elimination  │
+│ Dominant Memory      │ success-rate │
+│ Time                 │ 5.4s         │
+└──────────────────────┴──────────────┘
+
+── Generation 9 ──
+             Generation 9              
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
+│ Population           │ 10           │
+│ Avg Fitness          │ 0.844        │
+│ Best Fitness         │ 0.901        │
+│ Worst Fitness        │ 0.820        │
+│ Raw Calibration      │ 87.8%        │
+│ Adjusted Calibration │ 90.7%        │
+│ Task Accuracy        │ 88.8%        │
+│ Dominant Reasoning   │ elimination  │
+│ Dominant Memory      │ success-rate │
+│ Time                 │ 5.3s         │
+└──────────────────────┴──────────────┘
+
+Evolution complete!
+
+Evaluating on held-out test set...
+  Test set size: 9 tasks
+
+Test Set Results:
+  Raw Calibration: 77.6%
+  Evolved Calibration: 78.9%
+  Task Accuracy: 77.8%
+  Best Individual Fitness: 0.732
+
+Generating visualizations...
+  Saved: data/comprehensive_experiment/gpt_5_2_seed44/fitness_curves.png
+  Saved: data/comprehensive_experiment/gpt_5_2_seed44/prediction_accuracy.png
+  Saved: data/comprehensive_experiment/gpt_5_2_seed44/trait_distribution.png
+  Saved: data/comprehensive_experiment/gpt_5_2_seed44/phylogenetic_tree.png
+  Saved: data/comprehensive_experiment/gpt_5_2_seed44/confidence_evolution.png
+
+# Evolution Summary
+
+**Generations:** 10
+**Population size:** 10
+
+## Fitness Progression
+- Generation 0 avg fitness: 0.796
+- Final avg fitness: 0.844
+- Improvement: +0.047
+- Best individual fitness: 0.901
+
+## Prediction Calibration
+- Raw LLM calibration: 88.0% -> 87.8%
+- Evolved calibration (with bias): 82.8% -> 90.7%
+
+## Task Accuracy
+- Generation 0: 88.8%
+- Final: 88.8%
+
+## Dominant Strategies (Final Generation)
+- Reasoning: elimination (7/10 agents)
+- Memory: success-rate
+
+## Extinct Strategies
+- analogical
+
+Run data saved to 
+data/comprehensive_experiment/gpt_5_2_seed44/evolution_run.json
+
+═══ Test Set Performance (Held-Out Data) ═══
+  Tasks evaluated: 9
+  Raw calibration: 77.6%
+  Evolved calibration: 78.9%
+  Task accuracy: 77.8%
+  Best fitness: 0.732

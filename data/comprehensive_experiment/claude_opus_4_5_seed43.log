@@ -1,0 +1,304 @@
+Model: claude-opus-4-5-20251101
+API Base: https://api.anthropic.com/v1
+Connected to Redis at redis://localhost:6379/0
+
+Starting Evolution
+Population: 10 | Generations: 10 | Tasks/gen: 8 | Seed: 43
+
+
+── Generation 0 ──
+Failed to parse confidence from text (using default 0.5): I need to determine if 91 is prime.
+
+Let me break this down to fundamental principles. A prime number is divisible only by 1 and itself.
+
+**Internal debate:**
+
+*Side 1:* 91 looks like it could be prim
+Failed to parse confidence from text (using default 0.5): I need to think through this carefully, breaking it down to fundamental principles.
+
+**Internal Debate:**
+
+First, what does "longest river entirely within one country" mean? It means the river's entir
+Failed to parse confidence from text (using default 0.5): I need to analyze this logical syllogism carefully, then challenge my own reasoning.
+
+**Initial reasoning:**
+- Premise 1: All roses are flowers
+- Premise 2: Some flowers fade quickly
+- Conclusion: Som
+Failed to parse confidence from text (using default 0.5): I need to think carefully about this question and stress-test my reasoning.
+
+**Initial thought:** The Yangtze River in China is often cited as the longest river entirely within one country.
+
+**Devil's
+             Generation 0              
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
+│ Population           │ 10           │
+│ Avg Fitness          │ 0.698        │
+│ Best Fitness         │ 0.790        │
+│ Worst Fitness        │ 0.475        │
+│ Raw Calibration      │ 78.2%        │
+│ Adjusted Calibration │ 74.1%        │
+│ Task Accuracy        │ 75.0%        │
+│ Dominant Reasoning   │ step-by-step │
+│ Dominant Memory      │ recency      │
+│ Time                 │ 45.5s        │
+└──────────────────────┴──────────────┘
+
+── Generation 1 ──
+Failed to parse confidence from text (using default 0.5): I need to estimate the number of bones in an adult human body.
+
+Let me think through this step by step...
+
+First, I should consider what I know about human anatomy:
+- The skull has multiple bones (aro
+Failed to parse confidence from text (using default 0.5): I need to think about this carefully, considering multiple viewpoints.
+
+First, let me consider what "longest river entirely within one country" means - the river must have its entire course within a s
+Failed to parse confidence from text (using default 0.5): I need to think through this carefully, considering what I know about long rivers and their geographic extent.
+
+Let me argue through this:
+
+**First perspective:** The Yangtze River in China comes to m
+Failed to parse confidence from text (using default 0.5): I need to work through this step-by-step.
+
+First, let me consider what I know about the history of Saturn observations:
+- Saturn's rings were first observed through a telescope in the early 1600s
+- Ga
+Failed to parse confidence from text (using default 0.5): I need to estimate the number of bones in an adult human body.
+
+Let me think through this step-by-step:
+
+**What I know:**
+- The skull has multiple bones (around 22)
+- The spine has vertebrae (roughly 
+Failed to parse confidence from text (using default 0.5): I need to work through this logical reasoning problem carefully.
+
+**Setting up the argument:**
+- Premise 1: All roses are flowers
+- Premise 2: Some flowers fade quickly
+- Conclusion: Some roses fade q
+             Generation 1              
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
+│ Population           │ 10           │
+│ Avg Fitness          │ 0.717        │
+│ Best Fitness         │ 0.825        │
+│ Worst Fitness        │ 0.601        │
+│ Raw Calibration      │ 76.8%        │
+│ Adjusted Calibration │ 77.9%        │
+│ Task Accuracy        │ 73.8%        │
+│ Dominant Reasoning   │ step-by-step │
+│ Dominant Memory      │ relevance    │
+│ Time                 │ 51.1s        │
+└──────────────────────┴──────────────┘
+
+── Generation 2 ──
+Failed to parse confidence from text (using default 0.5): I need to estimate the number of bones in an adult human body.
+
+Let me think through this step-by-step:
+
+1. **What I know about human skeletal structure:**
+   - The skull contains multiple bones (arou
+             Generation 2              
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
+│ Population           │ 10           │
+│ Avg Fitness          │ 0.764        │
+│ Best Fitness         │ 0.825        │
+│ Worst Fitness        │ 0.645        │
+│ Raw Calibration      │ 81.1%        │
+│ Adjusted Calibration │ 81.8%        │
+│ Task Accuracy        │ 81.2%        │
+│ Dominant Reasoning   │ step-by-step │
+│ Dominant Memory      │ recency      │
+│ Time                 │ 36.4s        │
+└──────────────────────┴──────────────┘
+
+── Generation 3 ──
+             Generation 3              
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
+│ Population           │ 10           │
+│ Avg Fitness          │ 0.812        │
+│ Best Fitness         │ 0.883        │
+│ Worst Fitness        │ 0.727        │
+│ Raw Calibration      │ 83.4%        │
+│ Adjusted Calibration │ 86.4%        │
+│ Task Accuracy        │ 87.5%        │
+│ Dominant Reasoning   │ step-by-step │
+│ Dominant Memory      │ success-rate │
+│ Time                 │ 35.7s        │
+└──────────────────────┴──────────────┘
+
+── Generation 4 ──
+Failed to parse confidence from text (using default 0.5): I need to estimate the number of airports in the United States.
+
+Let me reason through this by considering what counts as an "airport":
+- This likely includes all types: major commercial airports, reg
+             Generation 4              
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
+│ Population           │ 10           │
+│ Avg Fitness          │ 0.819        │
+│ Best Fitness         │ 0.834        │
+│ Worst Fitness        │ 0.750        │
+│ Raw Calibration      │ 83.3%        │
+│ Adjusted Calibration │ 88.3%        │
+│ Task Accuracy        │ 86.2%        │
+│ Dominant Reasoning   │ step-by-step │
+│ Dominant Memory      │ success-rate │
+│ Time                 │ 32.4s        │
+└──────────────────────┴──────────────┘
+
+── Generation 5 ──
+             Generation 5              
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
+│ Population           │ 10           │
+│ Avg Fitness          │ 0.818        │
+│ Best Fitness         │ 0.905        │
+│ Worst Fitness        │ 0.749        │
+│ Raw Calibration      │ 83.1%        │
+│ Adjusted Calibration │ 88.1%        │
+│ Task Accuracy        │ 86.2%        │
+│ Dominant Reasoning   │ step-by-step │
+│ Dominant Memory      │ success-rate │
+│ Time                 │ 34.5s        │
+└──────────────────────┴──────────────┘
+
+── Generation 6 ──
+Failed to parse confidence from text (using default 0.5): I need to estimate the number of airports in the United States.
+
+Let me reason through this by considering what counts as an "airport":
+- This likely includes all types: major commercial airports, reg
+             Generation 6              
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
+│ Population           │ 10           │
+│ Avg Fitness          │ 0.811        │
+│ Best Fitness         │ 0.909        │
+│ Worst Fitness        │ 0.716        │
+│ Raw Calibration      │ 81.9%        │
+│ Adjusted Calibration │ 87.4%        │
+│ Task Accuracy        │ 85.0%        │
+│ Dominant Reasoning   │ step-by-step │
+│ Dominant Memory      │ success-rate │
+│ Time                 │ 34.6s        │
+└──────────────────────┴──────────────┘
+
+── Generation 7 ──
+             Generation 7              
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
+│ Population           │ 10           │
+│ Avg Fitness          │ 0.817        │
+│ Best Fitness         │ 0.834        │
+│ Worst Fitness        │ 0.749        │
+│ Raw Calibration      │ 83.2%        │
+│ Adjusted Calibration │ 88.5%        │
+│ Task Accuracy        │ 85.0%        │
+│ Dominant Reasoning   │ step-by-step │
+│ Dominant Memory      │ relevance    │
+│ Time                 │ 37.4s        │
+└──────────────────────┴──────────────┘
+
+── Generation 8 ──
+             Generation 8              
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
+│ Population           │ 10           │
+│ Avg Fitness          │ 0.824        │
+│ Best Fitness         │ 0.915        │
+│ Worst Fitness        │ 0.749        │
+│ Raw Calibration      │ 82.7%        │
+│ Adjusted Calibration │ 88.8%        │
+│ Task Accuracy        │ 86.2%        │
+│ Dominant Reasoning   │ step-by-step │
+│ Dominant Memory      │ relevance    │
+│ Time                 │ 39.9s        │
+└──────────────────────┴──────────────┘
+
+── Generation 9 ──
+             Generation 9              
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
+│ Population           │ 10           │
+│ Avg Fitness          │ 0.848        │
+│ Best Fitness         │ 0.915        │
+│ Worst Fitness        │ 0.818        │
+│ Raw Calibration      │ 83.9%        │
+│ Adjusted Calibration │ 91.1%        │
+│ Task Accuracy        │ 90.0%        │
+│ Dominant Reasoning   │ step-by-step │
+│ Dominant Memory      │ success-rate │
+│ Time                 │ 35.4s        │
+└──────────────────────┴──────────────┘
+
+Evolution complete!
+
+Evaluating on held-out test set...
+  Test set size: 9 tasks
+
+Test Set Results:
+  Raw Calibration: 74.0%
+  Evolved Calibration: 69.0%
+  Task Accuracy: 56.7%
+  Best Individual Fitness: 0.671
+
+Generating visualizations...
+  Saved: data/comprehensive_experiment/claude_opus_4_5_seed43/fitness_curves.png
+  Saved: 
+data/comprehensive_experiment/claude_opus_4_5_seed43/prediction_accuracy.png
+  Saved: 
+data/comprehensive_experiment/claude_opus_4_5_seed43/trait_distribution.png
+  Saved: 
+data/comprehensive_experiment/claude_opus_4_5_seed43/phylogenetic_tree.png
+  Saved: 
+data/comprehensive_experiment/claude_opus_4_5_seed43/confidence_evolution.png
+
+# Evolution Summary
+
+**Generations:** 10
+**Population size:** 10
+
+## Fitness Progression
+- Generation 0 avg fitness: 0.698
+- Final avg fitness: 0.848
+- Improvement: +0.150
+- Best individual fitness: 0.915
+
+## Prediction Calibration
+- Raw LLM calibration: 78.2% -> 83.9%
+- Evolved calibration (with bias): 74.1% -> 91.1%
+
+## Task Accuracy
+- Generation 0: 75.0%
+- Final: 90.0%
+
+## Dominant Strategies (Final Generation)
+- Reasoning: step-by-step (7/10 agents)
+- Memory: success-rate
+
+## Extinct Strategies
+- debate-self
+
+Run data saved to 
+data/comprehensive_experiment/claude_opus_4_5_seed43/evolution_run.json
+
+═══ Test Set Performance (Held-Out Data) ═══
+  Tasks evaluated: 9
+  Raw calibration: 74.0%
+  Evolved calibration: 69.0%
+  Task accuracy: 56.7%
+  Best fitness: 0.671
