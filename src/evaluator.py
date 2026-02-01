@@ -9,6 +9,7 @@ Configure via environment variables:
 from __future__ import annotations
 
 import asyncio
+import logging
 import os
 import re
 from dataclasses import dataclass
@@ -17,6 +18,8 @@ from openai import AsyncOpenAI
 
 from .genome import AgentGenome
 from .tasks import Task, TaskType
+
+logger = logging.getLogger(__name__)
 
 # Module-level config — set via configure_client() or env vars
 _client: AsyncOpenAI | None = None
@@ -81,26 +84,69 @@ class EvalResult:
 
 
 def _parse_prediction(text: str) -> tuple[float, str]:
-    """Extract confidence (0-1) and predicted answer from agent prediction response."""
+    """Extract confidence (0-1) and predicted answer from agent prediction response.
+
+    Uses multiple fallback patterns to robustly extract confidence and answer.
+    """
     confidence = 0.5
+    confidence_found = False
     answer = ""
 
-    # look for confidence
-    conf_match = re.search(r"confidence[:\s]*(\d+(?:\.\d+)?)\s*%?", text, re.IGNORECASE)
-    if conf_match:
-        val = float(conf_match.group(1))
-        confidence = val / 100.0 if val > 1.0 else val
+    # Try multiple confidence patterns in order of specificity
+    confidence_patterns = [
+        # Standard format: "Confidence: 75%"
+        r"confidence[:\s]*(\d+(?:\.\d+)?)\s*%",
+        # Alternative: "75% confident"
+        r"(\d+(?:\.\d+)?)\s*%\s*confiden",
+        # Fraction format: "Confidence: 0.75"
+        r"confidence[:\s]*(0\.\d+)",
+        # Natural language: "I'm 75 percent confident"
+        r"(?:i\s*(?:am|'m)\s*)?(\d+(?:\.\d+)?)\s*percent\s*confiden",
+        # Standalone percentage early in text
+        r"^.*?(\d+(?:\.\d+)?)\s*%",
+    ]
 
-    # look for answer in structured format
-    ans_match = re.search(r"(?:answer|prediction)[:\s]*(.+?)(?:\n|$)", text, re.IGNORECASE)
-    if ans_match:
-        answer = ans_match.group(1).strip().strip('"').strip("'")
-    else:
-        # fallback: last non-empty line
+    for pattern in confidence_patterns:
+        match = re.search(pattern, text, re.IGNORECASE | re.MULTILINE)
+        if match:
+            val = float(match.group(1))
+            # Convert to 0-1 range if needed
+            confidence = val / 100.0 if val > 1.0 else val
+            confidence = max(0.0, min(1.0, confidence))
+            confidence_found = True
+            break
+
+    # Try multiple answer patterns
+    answer_patterns = [
+        # Standard format: "Answer: xyz"
+        r"(?:answer|prediction):\s*(.+?)(?:\n|$)",
+        # After "is" format: "The answer is xyz" (not "is:")
+        r"(?:answer|prediction)\s+is:?\s+(.+?)(?:\n|$)",
+        # Direct assertion: "It's xyz" or "This is xyz"
+        r"(?:it\s*(?:is|'s)|this\s*is)\s+(.+?)(?:\n|$)",
+        # After colon without keyword: ": xyz" on answer line
+        r":\s*([A-Z][^\n]+?)(?:\n|$)",
+    ]
+
+    for pattern in answer_patterns:
+        match = re.search(pattern, text, re.IGNORECASE)
+        if match:
+            answer = match.group(1).strip().strip('"').strip("'").strip('.')
+            break
+
+    # Fallback: last non-empty line if no structured answer found
+    if not answer:
         lines = [l.strip() for l in text.strip().split("\n") if l.strip()]
         answer = lines[-1] if lines else ""
 
-    return max(0.0, min(1.0, confidence)), answer
+    # Final cleanup
+    answer = answer.strip().strip('"').strip("'")
+
+    # Log if confidence parsing failed (still using default 0.5)
+    if not confidence_found and "confiden" in text.lower():
+        logger.warning(f"Failed to parse confidence from text (using default 0.5): {text[:200]}")
+
+    return confidence, answer
 
 
 def _check_correct(actual: str, ground_truth: str, task_type: TaskType) -> bool:
@@ -147,6 +193,14 @@ def _score_fitness(
 
     Returns (raw_calibration, prediction_accuracy, fitness).
 
+    Fitness = 60% calibration + 40% task accuracy
+
+    This split is intentional (not arbitrary):
+    - 60% calibration: Primary objective — agents must know what they know
+    - 40% accuracy: Grounding constraint — prevents degenerate "always hedge" strategies
+
+    See FITNESS_FUNCTION_RATIONALE.md for full justification.
+
     Fitness rewards:
     - Correct answers (weighted by difficulty)
     - Calibrated confidence (predicted confidence close to actual outcome)
@@ -186,28 +240,65 @@ Be honest about your confidence. Overconfidence is penalized.
 Question: {question}"""
 
 
-async def run_agent_on_task(genome: AgentGenome, task: Task) -> EvalResult:
-    """Run one agent on one task: predict confidence, answer, score fitness."""
+async def run_agent_on_task(genome: AgentGenome, task: Task, max_retries: int = 2) -> EvalResult:
+    """Run one agent on one task: predict confidence, answer, score fitness.
+
+    Args:
+        genome: The agent configuration to evaluate
+        task: The task to evaluate on
+        max_retries: Number of retries if parsing fails (default 2)
+    """
     oai = get_client()
 
     system_msg = genome.build_system_message()
     user_msg = PREDICTION_PROMPT.format(question=task.prompt)
 
-    try:
-        response = await oai.chat.completions.create(
-            model=get_model(),
-            messages=[
-                {"role": "system", "content": system_msg},
-                {"role": "user", "content": user_msg},
-            ],
-            temperature=genome.temperature,
-            max_tokens=300,
-        )
-        text = response.choices[0].message.content or ""
-    except Exception as e:
-        text = f"Error: {e}\nConfidence: 50%\nAnswer: unknown"
+    text = ""
+    predicted_confidence = 0.5
+    predicted_answer = ""
 
-    predicted_confidence, predicted_answer = _parse_prediction(text)
+    for attempt in range(max_retries + 1):
+        try:
+            # Add emphasis on format adherence for retry attempts
+            if attempt > 0:
+                retry_msg = user_msg + "\n\nREMINDER: You MUST respond with exactly:\nConfidence: <number>%\nAnswer: <your answer>"
+            else:
+                retry_msg = user_msg
+
+            response = await oai.chat.completions.create(
+                model=get_model(),
+                messages=[
+                    {"role": "system", "content": system_msg},
+                    {"role": "user", "content": retry_msg},
+                ],
+                temperature=genome.temperature,
+                max_tokens=300,
+            )
+            text = response.choices[0].message.content or ""
+
+            # Try parsing
+            predicted_confidence, predicted_answer = _parse_prediction(text)
+
+            # If we got a valid parse (confidence != 0.5 or answer found), accept it
+            if predicted_confidence != 0.5 or predicted_answer:
+                break
+
+            # If this was the last attempt, keep what we got
+            if attempt == max_retries:
+                logger.warning(f"Parse failed after {max_retries + 1} attempts for task {task.task_id}")
+                break
+
+        except Exception as e:
+            logger.error(f"API error on attempt {attempt + 1} for task {task.task_id}: {e}")
+            if attempt == max_retries:
+                # Final fallback
+                text = f"Error: {e}\nConfidence: 50%\nAnswer: unknown"
+                predicted_confidence, predicted_answer = _parse_prediction(text)
+            else:
+                # Retry with exponential backoff
+                await asyncio.sleep(0.5 * (2 ** attempt))
+                continue
+
     is_correct = _check_correct(predicted_answer, task.ground_truth, task.task_type)
     raw_calibration, prediction_accuracy, fitness = _score_fitness(
         predicted_confidence, is_correct, genome.confidence_bias, task.difficulty

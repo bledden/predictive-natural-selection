@@ -22,6 +22,7 @@ def run(
     tasks: int = typer.Option(8, "--tasks", "-t", help="Tasks per generation"),
     concurrency: int = typer.Option(10, "--concurrency", "-c", help="Max concurrent LLM calls"),
     mutation_rate: float = typer.Option(0.3, "--mutation-rate", "-m", help="Mutation rate (0-1)"),
+    seed: int = typer.Option(42, "--seed", "-s", help="Random seed for task selection and reproducibility"),
     model: str = typer.Option("gpt-4o-mini", "--model", envvar="MODEL_NAME", help="LLM model name"),
     base_url: str = typer.Option(None, "--base-url", envvar="OPENAI_BASE_URL", help="OpenAI-compatible API base URL"),
     api_key: str = typer.Option(None, "--api-key", envvar="OPENAI_API_KEY", help="API key (or set env var)"),
@@ -31,6 +32,9 @@ def run(
     output_dir: str = typer.Option("data", "--output-dir", "-o", help="Output directory for plots"),
 ):
     """Run a full evolutionary simulation.
+
+    The seed parameter controls task selection and train/test split for reproducibility.
+    Running with the same seed will produce comparable results across runs.
 
     Supports any OpenAI-compatible API. Examples:
       # OpenAI
@@ -117,6 +121,7 @@ async def _run_async(
             concurrency=concurrency,
             mutation_rate=mutation_rate,
             weave_enabled=weave_enabled,
+            run_seed=seed,
         )
 
         # log to Weave
@@ -186,8 +191,18 @@ async def _run_async(
                 ],
                 "all_genomes": evolution_run.all_genomes,
                 "all_results": evolution_run.all_results,
+                "test_results": evolution_run.test_results,
             }, f, indent=2)
         console.print(f"\n[green]Run data saved to {run_data_path}[/green]")
+
+        # Print test set summary
+        if evolution_run.test_results:
+            console.print(f"\n[bold cyan]═══ Test Set Performance (Held-Out Data) ═══[/bold cyan]")
+            console.print(f"  Tasks evaluated: {evolution_run.test_results.get('n_tasks', 0)}")
+            console.print(f"  Raw calibration: {evolution_run.test_results.get('avg_raw_calibration', 0):.1%}")
+            console.print(f"  Evolved calibration: {evolution_run.test_results.get('avg_prediction_accuracy', 0):.1%}")
+            console.print(f"  Task accuracy: {evolution_run.test_results.get('avg_task_accuracy', 0):.1%}")
+            console.print(f"  Best fitness: {evolution_run.test_results.get('best_fitness', 0):.3f}")
 
     finally:
         await store.close()

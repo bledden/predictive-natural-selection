@@ -172,21 +172,117 @@ def get_task_batch(n: int = 8, seed: int | None = None) -> list[Task]:
 
 # Pre-built consistent task sets for reproducible runs
 _FIXED_TASK_SETS: dict[int, list[Task]] = {}
+_TRAIN_VAL_TEST_SPLITS: dict[int, tuple[list[Task], list[Task], list[Task]]] = {}
 
 
-def get_fixed_task_batch(n: int = 8, run_seed: int = 42) -> list[Task]:
+def get_train_val_test_split(
+    run_seed: int = 42,
+    train_ratio: float = 0.6,
+    val_ratio: float = 0.2,
+) -> tuple[list[Task], list[Task], list[Task]]:
+    """Split ALL_TASKS into train/validation/test sets.
+
+    Args:
+        run_seed: Random seed for reproducible splits
+        train_ratio: Fraction of tasks for training (default 0.6 = 27 tasks)
+        val_ratio: Fraction for validation (default 0.2 = 9 tasks)
+        test_ratio: Implicit (1 - train - val = 0.2 = 9 tasks)
+
+    Returns:
+        (train_tasks, val_tasks, test_tasks)
+
+    Strategy:
+        - Stratified split: maintain task type distribution in each set
+        - Train: Used during evolution for fitness scoring
+        - Val: Used for early stopping / convergence detection (future use)
+        - Test: NEVER seen during evolution, used only for final evaluation
+    """
+    if run_seed in _TRAIN_VAL_TEST_SPLITS:
+        return _TRAIN_VAL_TEST_SPLITS[run_seed]
+
+    rng = random.Random(run_seed)
+    test_ratio = 1.0 - train_ratio - val_ratio
+
+    train_tasks: list[Task] = []
+    val_tasks: list[Task] = []
+    test_tasks: list[Task] = []
+
+    # Stratified split: maintain type distribution in each set
+    for pool in [TRIVIA_TASKS, ESTIMATION_TASKS, REASONING_TASKS]:
+        shuffled = list(pool)
+        rng.shuffle(shuffled)
+
+        n_total = len(shuffled)
+        n_train = int(n_total * train_ratio)
+        n_val = int(n_total * val_ratio)
+
+        train_tasks.extend(shuffled[:n_train])
+        val_tasks.extend(shuffled[n_train:n_train + n_val])
+        test_tasks.extend(shuffled[n_train + n_val:])
+
+    # Shuffle within each set
+    rng.shuffle(train_tasks)
+    rng.shuffle(val_tasks)
+    rng.shuffle(test_tasks)
+
+    _TRAIN_VAL_TEST_SPLITS[run_seed] = (train_tasks, val_tasks, test_tasks)
+    return train_tasks, val_tasks, test_tasks
+
+
+def get_fixed_task_batch(n: int = 8, run_seed: int = 42, split: str = "train") -> list[Task]:
     """Get a fixed task batch that stays the same across generations.
+
+    Args:
+        n: Number of tasks to sample
+        run_seed: Random seed for reproducibility
+        split: Which data split to use ("train", "val", "test", or "all")
 
     Call once per run with a seed, then reuse for every generation.
     This makes fitness comparable across generations.
+
+    IMPORTANT: Use split="train" during evolution, split="test" for final evaluation.
     """
-    if run_seed not in _FIXED_TASK_SETS:
+    cache_key = (run_seed, split)
+
+    if cache_key not in _FIXED_TASK_SETS:
         rng = random.Random(run_seed)
+
+        # Get appropriate task pool based on split
+        if split == "all":
+            task_pool = ALL_TASKS
+        elif split == "train":
+            train_tasks, _, _ = get_train_val_test_split(run_seed)
+            task_pool = train_tasks
+        elif split == "val":
+            _, val_tasks, _ = get_train_val_test_split(run_seed)
+            task_pool = val_tasks
+        elif split == "test":
+            _, _, test_tasks = get_train_val_test_split(run_seed)
+            task_pool = test_tasks
+        else:
+            raise ValueError(f"Invalid split: {split}. Must be 'train', 'val', 'test', or 'all'")
+
+        # Sample from the pool, ensuring type diversity
         batch: list[Task] = []
-        for pool in [TRIVIA_TASKS, ESTIMATION_TASKS, REASONING_TASKS]:
-            batch.append(rng.choice(pool))
-        remaining = [t for t in ALL_TASKS if t not in batch]
-        batch.extend(rng.sample(remaining, min(n - 3, len(remaining))))
+
+        # Get one of each type from the pool if possible
+        trivia_pool = [t for t in task_pool if t.task_type == TaskType.TRIVIA]
+        estimation_pool = [t for t in task_pool if t.task_type == TaskType.ESTIMATION]
+        reasoning_pool = [t for t in task_pool if t.task_type == TaskType.REASONING]
+
+        if trivia_pool:
+            batch.append(rng.choice(trivia_pool))
+        if estimation_pool:
+            batch.append(rng.choice(estimation_pool))
+        if reasoning_pool:
+            batch.append(rng.choice(reasoning_pool))
+
+        # Fill remaining slots
+        remaining = [t for t in task_pool if t not in batch]
+        if remaining:
+            batch.extend(rng.sample(remaining, min(n - len(batch), len(remaining))))
+
         rng.shuffle(batch)
-        _FIXED_TASK_SETS[run_seed] = batch[:n]
-    return _FIXED_TASK_SETS[run_seed]
+        _FIXED_TASK_SETS[cache_key] = batch[:n]
+
+    return _FIXED_TASK_SETS[cache_key]

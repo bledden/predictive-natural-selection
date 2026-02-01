@@ -14,7 +14,7 @@ from .evaluator import EvalResult, run_generation_tasks
 from .evolution import aggregate_fitness, produce_next_generation
 from .genome import AgentGenome
 from .population_store import PopulationStore
-from .tasks import get_fixed_task_batch
+from .tasks import get_fixed_task_batch, get_train_val_test_split
 from .weave_integration import trace_agent_prediction
 
 console = Console()
@@ -41,6 +41,7 @@ class EvolutionRun:
     generation_stats: list[GenerationStats] = field(default_factory=list)
     all_genomes: list[dict[str, Any]] = field(default_factory=list)
     all_results: list[dict[str, Any]] = field(default_factory=list)
+    test_results: dict[str, Any] = field(default_factory=dict)  # Final test set evaluation
 
 
 def _compute_gen_stats(
@@ -106,6 +107,51 @@ def _print_gen_stats(stats: GenerationStats) -> None:
     console.print(table)
 
 
+async def evaluate_on_test_set(
+    population: list[AgentGenome],
+    run_seed: int = 42,
+    concurrency: int = 10,
+) -> dict[str, Any]:
+    """Evaluate final population on held-out test set.
+
+    This provides an unbiased estimate of generalization performance.
+    Test tasks were NEVER seen during evolution.
+    """
+    # Get test tasks (never seen during training)
+    _, _, test_tasks = get_train_val_test_split(run_seed)
+
+    console.print(f"  Test set size: {len(test_tasks)} tasks")
+
+    # Evaluate all agents on test tasks
+    results = await run_generation_tasks(population, test_tasks, concurrency=concurrency)
+
+    # Compute aggregate metrics
+    all_eval_results = [r for rs in results.values() for r in rs]
+    fitness_scores = {
+        genome.genome_id: aggregate_fitness([r.fitness for r in results.get(genome.genome_id, [])])
+        for genome in population
+    }
+
+    return {
+        "n_tasks": len(test_tasks),
+        "n_agents": len(population),
+        "avg_raw_calibration": (
+            sum(r.raw_calibration for r in all_eval_results) / len(all_eval_results)
+            if all_eval_results else 0
+        ),
+        "avg_prediction_accuracy": (
+            sum(r.prediction_accuracy for r in all_eval_results) / len(all_eval_results)
+            if all_eval_results else 0
+        ),
+        "avg_task_accuracy": (
+            sum(1 for r in all_eval_results if r.is_correct) / len(all_eval_results)
+            if all_eval_results else 0
+        ),
+        "best_fitness": max(fitness_scores.values()) if fitness_scores else 0,
+        "avg_fitness": sum(fitness_scores.values()) / len(fitness_scores) if fitness_scores else 0,
+    }
+
+
 async def run_evolution(
     store: PopulationStore,
     population_size: int = 10,
@@ -116,13 +162,18 @@ async def run_evolution(
     survival_rate: float = 0.3,
     elite_count: int = 2,
     weave_enabled: bool = False,
+    run_seed: int = 42,
 ) -> EvolutionRun:
-    """Run a full evolutionary loop."""
+    """Run a full evolutionary loop.
+
+    Args:
+        run_seed: Random seed for task selection and train/test split (default 42)
+    """
     run = EvolutionRun()
 
     await store.clear_all()
     console.print(f"\n[bold magenta]Starting Evolution[/bold magenta]")
-    console.print(f"Population: {population_size} | Generations: {num_generations} | Tasks/gen: {tasks_per_generation}\n")
+    console.print(f"Population: {population_size} | Generations: {num_generations} | Tasks/gen: {tasks_per_generation} | Seed: {run_seed}\n")
 
     # ── Generation 0: random population ────────────────────────
     population = [AgentGenome.random(generation=0) for _ in range(population_size)]
@@ -135,8 +186,8 @@ async def run_evolution(
         t0 = time.time()
         console.print(f"\n[bold cyan]── Generation {gen} ──[/bold cyan]")
 
-        # fixed task batch — same tasks every generation for comparable fitness
-        tasks = get_fixed_task_batch(n=tasks_per_generation, run_seed=42)
+        # TRAINING tasks only — test set held out for final evaluation
+        tasks = get_fixed_task_batch(n=tasks_per_generation, run_seed=run_seed, split="train")
 
         # run all agents on all tasks
         results = await run_generation_tasks(population, tasks, concurrency=concurrency)
@@ -206,4 +257,16 @@ async def run_evolution(
         await store.set_current_generation(gen)
 
     console.print(f"\n[bold green]Evolution complete![/bold green]")
+
+    # ── Final Test Set Evaluation ──────────────────────────────
+    console.print(f"\n[bold yellow]Evaluating on held-out test set...[/bold yellow]")
+    test_results = await evaluate_on_test_set(population, run_seed=run_seed, concurrency=concurrency)
+    run.test_results = test_results
+
+    console.print(f"\n[bold cyan]Test Set Results:[/bold cyan]")
+    console.print(f"  Raw Calibration: {test_results['avg_raw_calibration']:.1%}")
+    console.print(f"  Evolved Calibration: {test_results['avg_prediction_accuracy']:.1%}")
+    console.print(f"  Task Accuracy: {test_results['avg_task_accuracy']:.1%}")
+    console.print(f"  Best Individual Fitness: {test_results['best_fitness']:.3f}")
+
     return run

@@ -12,6 +12,12 @@ from fastapi import FastAPI, HTTPException, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 
+from .validation import (
+    compute_historical_validation,
+    run_live_ab_test,
+    run_generalization_test,
+)
+
 app = FastAPI(title="Predictive Natural Selection API", version="0.1.0")
 
 app.add_middleware(
@@ -43,6 +49,7 @@ def get_run_summary():
     data = _load_run()
     stats = data.get("generation_stats", [])
     genomes = data.get("all_genomes", [])
+    test_results = data.get("test_results", {})
 
     if not stats:
         return {"status": "empty"}
@@ -60,7 +67,7 @@ def get_run_summary():
     initial_styles = set(g["reasoning_style"] for g in genomes if g["generation"] == 0)
     final_styles = set(g["reasoning_style"] for g in final_genomes)
 
-    return {
+    summary = {
         "total_generations": last["generation"] + 1,
         "population_size": last["population_size"],
         "initial_avg_fitness": first["avg_fitness"],
@@ -77,6 +84,19 @@ def get_run_summary():
         "strategy_counts": style_counts,
         "extinct_strategies": list(initial_styles - final_styles),
     }
+
+    # Add test set results if available
+    if test_results:
+        summary["test_set"] = {
+            "n_tasks": test_results.get("n_tasks", 0),
+            "raw_calibration": test_results.get("avg_raw_calibration", 0),
+            "evolved_calibration": test_results.get("avg_prediction_accuracy", 0),
+            "task_accuracy": test_results.get("avg_task_accuracy", 0),
+            "best_fitness": test_results.get("best_fitness", 0),
+            "avg_fitness": test_results.get("avg_fitness", 0),
+        }
+
+    return summary
 
 
 @app.get("/api/generations")
@@ -259,6 +279,7 @@ def get_prescription():
         "weak_strategies": weak,
         "total_generations": last["generation"] + 1,
         "population_size": len(final_genomes),
+        "validation": compute_historical_validation(data),
     }
 
 
@@ -319,7 +340,8 @@ async def live_evolution_run(
 
             yield f"data: {json.dumps({'type': 'start', 'population': population, 'generations': generations, 'tasks': tasks})}\n\n"
 
-            tasks_batch = get_fixed_task_batch(n=tasks, run_seed=42)
+            # Use TRAINING tasks only during evolution
+            tasks_batch = get_fixed_task_batch(n=tasks, run_seed=42, split="train")
 
             for gen in range(generations):
                 _live_run_generation = gen
@@ -383,6 +405,15 @@ async def live_evolution_run(
 
                 await store.set_current_generation(gen)
 
+            # Evaluate on held-out test set
+            from .orchestrator import evaluate_on_test_set
+            from .tasks import get_train_val_test_split
+
+            _, _, test_tasks = get_train_val_test_split(run_seed=42)
+            test_eval = await evaluate_on_test_set(pop, run_seed=42, concurrency=10)
+
+            yield f"data: {json.dumps({'type': 'test_eval', 'test_results': test_eval})}\n\n"
+
             # Save to disk so the static endpoints pick it up
             DATA_DIR.mkdir(parents=True, exist_ok=True)
             with open(DATA_DIR / "evolution_run.json", "w") as f:
@@ -390,9 +421,10 @@ async def live_evolution_run(
                     "generation_stats": all_stats,
                     "all_genomes": all_genomes_list,
                     "all_results": all_results_list,
+                    "test_results": test_eval,
                 }, f, indent=2)
 
-            yield f"data: {json.dumps({'type': 'complete', 'total_generations': generations})}\n\n"
+            yield f"data: {json.dumps({'type': 'complete', 'total_generations': generations, 'test_results': test_eval})}\n\n"
 
         except Exception as e:
             yield f"data: {json.dumps({'type': 'error', 'message': str(e)})}\n\n"
@@ -402,3 +434,50 @@ async def live_evolution_run(
             await store.close()
 
     return StreamingResponse(event_stream(), media_type="text/event-stream")
+
+
+# ============================================================================
+# VALIDATION ENDPOINTS
+# ============================================================================
+
+@app.get("/api/validate/historical")
+def validate_historical():
+    """Layer 1: Historical validation from evolution data.
+
+    Shows improvement from generation 0 (random) to generation N (evolved).
+    Proves the prescription works because evolution tested these settings.
+    """
+    data = _load_run()
+    validation = compute_historical_validation(data)
+    return validation
+
+
+@app.get("/api/validate/live")
+async def validate_live(tasks: int = 10):
+    """Layer 2: Live A/B test — naive vs optimized on same tasks.
+
+    Runs both agents side-by-side right now to prove the delta.
+    Takes ~10-20 seconds depending on task count.
+
+    Args:
+        tasks: Number of tasks to test (default 10)
+    """
+    data = _load_run()
+    prescription = get_prescription()
+    validation = await run_live_ab_test(prescription, num_tasks=tasks)
+    return validation
+
+
+@app.get("/api/validate/generalization")
+async def validate_generalization(tasks: int = 10):
+    """Layer 3: Generalization test on held-out tasks.
+
+    Tests prescription on tasks unseen during evolution.
+    Proves the settings generalize, not just overfit to training tasks.
+
+    Args:
+        tasks: Number of held-out tasks to test (default 10)
+    """
+    prescription = get_prescription()
+    validation = await run_generalization_test(prescription, num_tasks=tasks)
+    return validation
