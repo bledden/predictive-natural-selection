@@ -229,6 +229,38 @@ def get_train_val_test_split(
     return train_tasks, val_tasks, test_tasks
 
 
+def get_rotating_task_batch(n: int = 15, generation: int = 0, run_seed: int = 42) -> list[Task]:
+    """Get a task batch that varies per generation, preventing task memorization.
+
+    Args:
+        n: Number of tasks to sample
+        generation: Current generation number (changes the sample each gen)
+        run_seed: Base random seed for reproducibility
+
+    Each generation gets a different subset of training tasks, seeded
+    deterministically by (run_seed, generation). This prevents evolution
+    from overfitting to a fixed set of tasks.
+    """
+    combined_seed = run_seed * 1000 + generation
+    train_tasks, _, _ = get_train_val_test_split(run_seed)
+    rng = random.Random(combined_seed)
+
+    # Type-diverse sampling from training pool
+    batch: list[Task] = []
+    for pool_type in [TaskType.TRIVIA, TaskType.ESTIMATION, TaskType.REASONING]:
+        typed = [t for t in train_tasks if t.task_type == pool_type]
+        k = max(1, n // 3)
+        batch.extend(rng.sample(typed, min(k, len(typed))))
+
+    # Fill remaining slots
+    remaining = [t for t in train_tasks if t not in batch]
+    if remaining and len(batch) < n:
+        batch.extend(rng.sample(remaining, min(n - len(batch), len(remaining))))
+
+    rng.shuffle(batch)
+    return batch[:n]
+
+
 def get_fixed_task_batch(n: int = 8, run_seed: int = 42, split: str = "train") -> list[Task]:
     """Get a fixed task batch that stays the same across generations.
 

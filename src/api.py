@@ -324,7 +324,7 @@ def get_live_status():
 async def live_evolution_run(
     population: int = 10,
     generations: int = 8,
-    tasks: int = 8,
+    tasks: int = 15,
 ):
     """Start a live evolution run and stream results as SSE."""
     global _live_run_active, _live_run_generation, _live_run_total
@@ -344,12 +344,13 @@ async def live_evolution_run(
             from .evolution import aggregate_fitness, produce_next_generation
             from .genome import AgentGenome
             from .population_store import PopulationStore
-            from .tasks import get_fixed_task_batch
+            from .tasks import get_rotating_task_batch
 
             # configure LLM from env
-            model = os.environ.get("MODEL_NAME", "deepseek-ai/DeepSeek-V3-0324")
+            model = os.environ.get("MODEL_NAME", "deepseek-ai/DeepSeek-V3.1")
             base_url = os.environ.get("OPENAI_BASE_URL", "https://api.inference.wandb.ai/v1")
-            api_key = os.environ.get("OPENAI_API_KEY", os.environ.get("WANDB_API_KEY", ""))
+            # Prefer WANDB_API_KEY for W&B inference endpoint
+            api_key = os.environ.get("WANDB_API_KEY", os.environ.get("OPENAI_API_KEY", ""))
             configure_client(model=model, base_url=base_url, api_key=api_key)
 
             store = PopulationStore("redis://localhost:6379/0")
@@ -367,11 +368,11 @@ async def live_evolution_run(
 
             yield f"data: {json.dumps({'type': 'start', 'population': population, 'generations': generations, 'tasks': tasks})}\n\n"
 
-            # Use TRAINING tasks only during evolution
-            tasks_batch = get_fixed_task_batch(n=tasks, run_seed=42, split="train")
-
             for gen in range(generations):
                 _live_run_generation = gen
+
+                # Rotate training tasks per generation to prevent overfitting
+                tasks_batch = get_rotating_task_batch(n=tasks, generation=gen, run_seed=42)
 
                 results = await run_generation_tasks(pop, tasks_batch, concurrency=10)
 

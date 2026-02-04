@@ -14,7 +14,7 @@ from .evaluator import EvalResult, run_generation_tasks
 from .evolution import aggregate_fitness, produce_next_generation
 from .genome import AgentGenome
 from .population_store import PopulationStore
-from .tasks import get_fixed_task_batch, get_train_val_test_split
+from .tasks import get_rotating_task_batch, get_train_val_test_split
 from .weave_integration import trace_agent_prediction
 
 console = Console()
@@ -156,7 +156,7 @@ async def run_evolution(
     store: PopulationStore,
     population_size: int = 10,
     num_generations: int = 15,
-    tasks_per_generation: int = 8,
+    tasks_per_generation: int = 15,
     concurrency: int = 10,
     mutation_rate: float = 0.3,
     survival_rate: float = 0.3,
@@ -186,8 +186,8 @@ async def run_evolution(
         t0 = time.time()
         console.print(f"\n[bold cyan]── Generation {gen} ──[/bold cyan]")
 
-        # TRAINING tasks only — test set held out for final evaluation
-        tasks = get_fixed_task_batch(n=tasks_per_generation, run_seed=run_seed, split="train")
+        # TRAINING tasks only — rotated per generation to prevent overfitting
+        tasks = get_rotating_task_batch(n=tasks_per_generation, generation=gen, run_seed=run_seed)
 
         # run all agents on all tasks
         results = await run_generation_tasks(population, tasks, concurrency=concurrency)

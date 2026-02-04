@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 
 # Module-level config — set via configure_client() or env vars
 _client: AsyncOpenAI | None = None
-_model_name: str = os.environ.get("MODEL_NAME", "gpt-4o-mini")
+_model_name: str = os.environ.get("MODEL_NAME", "deepseek-ai/DeepSeek-V3.1")
 
 
 def configure_client(
@@ -208,14 +208,14 @@ def _score_fitness(
     """
     outcome = 1.0 if is_correct else 0.0
 
-    # Raw calibration: how well the LLM's own confidence matches reality
-    raw_calibration = 1.0 - abs(predicted_confidence - outcome)
+    # Raw calibration: how well the LLM's own confidence matches reality (Brier score)
+    raw_calibration = 1.0 - (predicted_confidence - outcome) ** 2
 
     # Apply confidence bias from genome
     adjusted_confidence = max(0.0, min(1.0, predicted_confidence + confidence_bias))
 
-    # Adjusted prediction accuracy: used for fitness
-    prediction_accuracy = 1.0 - abs(adjusted_confidence - outcome)
+    # Adjusted prediction accuracy: used for fitness (Brier score — proper scoring rule)
+    prediction_accuracy = 1.0 - (adjusted_confidence - outcome) ** 2
 
     # Task performance: bonus for correct answers scaled by difficulty
     task_score = outcome * (0.5 + 0.5 * task_difficulty)

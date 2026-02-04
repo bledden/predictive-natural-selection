@@ -19,13 +19,13 @@ console = Console()
 def run(
     population: int = typer.Option(10, "--population", "-p", help="Population size"),
     generations: int = typer.Option(15, "--generations", "-g", help="Number of generations"),
-    tasks: int = typer.Option(8, "--tasks", "-t", help="Tasks per generation"),
+    tasks: int = typer.Option(15, "--tasks", "-t", help="Tasks per generation"),
     concurrency: int = typer.Option(10, "--concurrency", "-c", help="Max concurrent LLM calls"),
     mutation_rate: float = typer.Option(0.3, "--mutation-rate", "-m", help="Mutation rate (0-1)"),
     seed: int = typer.Option(42, "--seed", "-s", help="Random seed for task selection and reproducibility"),
-    model: str = typer.Option("gpt-4o-mini", "--model", envvar="MODEL_NAME", help="LLM model name"),
-    base_url: str = typer.Option(None, "--base-url", envvar="OPENAI_BASE_URL", help="OpenAI-compatible API base URL"),
-    api_key: str = typer.Option(None, "--api-key", envvar="OPENAI_API_KEY", help="API key (or set env var)"),
+    model: str = typer.Option("deepseek-ai/DeepSeek-V3.1", "--model", envvar="MODEL_NAME", help="LLM model name"),
+    base_url: str = typer.Option("https://api.inference.wandb.ai/v1", "--base-url", envvar="OPENAI_BASE_URL", help="OpenAI-compatible API base URL"),
+    api_key: str = typer.Option(None, "--api-key", envvar="WANDB_API_KEY", help="API key (or set WANDB_API_KEY / OPENAI_API_KEY env var)"),
     redis_url: str = typer.Option("redis://localhost:6379/0", "--redis-url", envvar="REDIS_URL"),
     weave_project: str = typer.Option("predictive-natural-selection", "--weave-project"),
     no_weave: bool = typer.Option(False, "--no-weave", help="Disable Weave tracing"),
@@ -37,11 +37,11 @@ def run(
     Running with the same seed will produce comparable results across runs.
 
     Supports any OpenAI-compatible API. Examples:
-      # OpenAI
-      evolve run --model gpt-4o-mini
+      # W&B Inference (default)
+      evolve run --model deepseek-ai/DeepSeek-V3.1
 
-      # Gemini
-      evolve run --model gemini-2.5-flash-lite --base-url https://generativelanguage.googleapis.com/v1beta/openai/ --api-key $GEMINI_API_KEY
+      # OpenAI direct
+      evolve run --model gpt-4o --base-url https://api.openai.com/v1 --api-key $OPENAI_API_KEY
 
       # Local ollama
       evolve run --model llama3.3 --base-url http://localhost:11434/v1 --api-key ollama
@@ -87,7 +87,9 @@ async def _run_async(
     from .visualization import generate_all_plots, generate_summary
     from .weave_integration import init_weave, trace_evolution_complete, trace_generation_summary
 
-    # configure LLM client
+    # configure LLM client — fall back to OPENAI_API_KEY if no key provided
+    if not api_key:
+        api_key = os.environ.get("WANDB_API_KEY") or os.environ.get("OPENAI_API_KEY")
     configure_client(model=model, base_url=base_url, api_key=api_key)
     console.print(f"[green]Model:[/green] {model}")
     if base_url:

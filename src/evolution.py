@@ -82,7 +82,7 @@ def mutate(genome: AgentGenome, mutation_rate: float = 0.3) -> AgentGenome:
 
     if random.random() < mutation_rate:
         g.confidence_bias = round(
-            max(-0.3, min(0.3, g.confidence_bias + random.uniform(-0.1, 0.1))), 2
+            max(-0.15, min(0.15, g.confidence_bias + random.uniform(-0.05, 0.05))), 2
         )
 
     if random.random() < mutation_rate:

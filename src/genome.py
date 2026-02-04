@@ -39,7 +39,7 @@ class AgentGenome:
     reasoning_style: str = "chain-of-thought"
     memory_window: int = 5
     memory_weighting: str = "recency"
-    confidence_bias: float = 0.0  # -0.3 to +0.3, adjusts reported confidence
+    confidence_bias: float = 0.0  # -0.15 to +0.15, adjusts reported confidence
     risk_tolerance: float = 0.5  # 0.0 to 1.0
     temperature: float = 0.7  # LLM temperature
     generation: int = 0
@@ -72,7 +72,7 @@ class AgentGenome:
             reasoning_style=random.choice(REASONING_STYLES),
             memory_window=random.randint(1, 10),
             memory_weighting=random.choice(MEMORY_WEIGHTINGS),
-            confidence_bias=round(random.uniform(-0.3, 0.3), 2),
+            confidence_bias=round(random.uniform(-0.15, 0.15), 2),
             risk_tolerance=round(random.uniform(0.1, 0.9), 2),
             temperature=round(random.uniform(0.3, 1.2), 2),
             generation=generation,
