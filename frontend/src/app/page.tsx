@@ -13,6 +13,7 @@ import { PhylogeneticTree } from "@/components/dashboard/phylogenetic-tree";
 import { GenerationExplorer } from "@/components/dashboard/generation-explorer";
 import { LiveEvolution } from "@/components/dashboard/live-evolution";
 import { Prescription } from "@/components/dashboard/prescription";
+import { ModelComparison } from "@/components/dashboard/model-comparison";
 import { DashboardFooter } from "@/components/dashboard/footer";
 
 class ErrorBoundary extends React.Component<
@@ -51,6 +52,13 @@ export default function Dashboard() {
         <section>
           <ErrorBoundary name="DiagnosisHero">
             <DiagnosisHero />
+          </ErrorBoundary>
+        </section>
+
+        {/* MULTI-MODEL COMPARISON */}
+        <section>
+          <ErrorBoundary name="ModelComparison">
+            <ModelComparison />
           </ErrorBoundary>
         </section>
 

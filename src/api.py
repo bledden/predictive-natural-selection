@@ -34,6 +34,33 @@ _live_run_active = False
 _live_run_generation = -1
 _live_run_total = 0
 
+# Available experiment datasets
+EXPERIMENTS = {
+    "claude_opus_4_5": {
+        "name": "Claude Opus 4.5",
+        "path": "comprehensive_experiment/claude_opus_4_5_seed42",
+        "category": "frontier",
+    },
+    "gpt_5_2": {
+        "name": "GPT-5.2",
+        "path": "comprehensive_experiment/gpt_5_2_seed42",
+        "category": "frontier",
+    },
+    "deepseek_v3": {
+        "name": "DeepSeek V3",
+        "path": "comprehensive_experiment/deepseek_v3_seed42",
+        "category": "frontier",
+    },
+    "gpt_4o": {
+        "name": "GPT-4o",
+        "path": "previous_gen_experiment/gpt_4o_seed42",
+        "category": "previous_gen",
+    },
+}
+
+# Currently active experiment (default)
+_active_experiment = "claude_opus_4_5"
+
 
 def _load_run() -> dict:
     path = DATA_DIR / "evolution_run.json"
@@ -481,3 +508,114 @@ async def validate_generalization(tasks: int = 10):
     prescription = get_prescription()
     validation = await run_generalization_test(prescription, num_tasks=tasks)
     return validation
+
+
+# ============================================================================
+# MULTI-EXPERIMENT COMPARISON ENDPOINTS
+# ============================================================================
+
+@app.get("/api/experiments")
+def list_experiments():
+    """List all available experiment datasets."""
+    available = []
+    for key, info in EXPERIMENTS.items():
+        exp_path = DATA_DIR / info["path"] / "evolution_run.json"
+        available.append({
+            "id": key,
+            "name": info["name"],
+            "category": info["category"],
+            "has_data": exp_path.exists(),
+            "active": key == _active_experiment,
+        })
+    return available
+
+
+@app.post("/api/experiments/{experiment_id}/activate")
+def activate_experiment(experiment_id: str):
+    """Switch the dashboard to display a different experiment."""
+    global _active_experiment
+    if experiment_id not in EXPERIMENTS:
+        raise HTTPException(status_code=404, detail=f"Unknown experiment: {experiment_id}")
+
+    info = EXPERIMENTS[experiment_id]
+    src = DATA_DIR / info["path"] / "evolution_run.json"
+    if not src.exists():
+        raise HTTPException(status_code=404, detail=f"No data for {info['name']}")
+
+    # Copy experiment data to the main evolution_run.json
+    import shutil
+    dst = DATA_DIR / "evolution_run.json"
+    shutil.copy2(src, dst)
+    _active_experiment = experiment_id
+
+    return {"status": "ok", "active": experiment_id, "name": info["name"]}
+
+
+@app.get("/api/comparison")
+def get_comparison():
+    """Compare all available experiments side by side."""
+    results = []
+    for key, info in EXPERIMENTS.items():
+        exp_path = DATA_DIR / info["path"] / "evolution_run.json"
+        if not exp_path.exists():
+            continue
+
+        with open(exp_path) as f:
+            data = json.load(f)
+
+        stats = data.get("generation_stats", [])
+        test = data.get("test_results", {})
+
+        if not stats:
+            continue
+
+        first, last = stats[0], stats[-1]
+        raw_cal = last.get("avg_raw_calibration", last["avg_prediction_accuracy"])
+        evolved_cal = last["avg_prediction_accuracy"]
+        gap = evolved_cal - raw_cal
+
+        # Test set metrics if available
+        test_raw = test.get("avg_raw_calibration", raw_cal)
+        test_evolved = test.get("avg_prediction_accuracy", evolved_cal)
+        test_gap = test_evolved - test_raw
+
+        # Determine verdict
+        if abs(test_gap) < 0.03:
+            verdict = "already_optimized"
+            verdict_label = "Already Optimized"
+        elif test_gap > 0.03:
+            verdict = "system_helps"
+            verdict_label = "System Optimization Helps"
+        else:
+            verdict = "need_better_model"
+            verdict_label = "Need Better Model"
+
+        results.append({
+            "id": key,
+            "name": info["name"],
+            "category": info["category"],
+            "generations": last["generation"] + 1,
+            "training": {
+                "raw_calibration": round(raw_cal * 100, 1),
+                "evolved_calibration": round(evolved_cal * 100, 1),
+                "gap_pct": round(gap * 100, 1),
+            },
+            "test_set": {
+                "raw_calibration": round(test_raw * 100, 1),
+                "evolved_calibration": round(test_evolved * 100, 1),
+                "gap_pct": round(test_gap * 100, 1),
+                "task_accuracy": round(test.get("avg_task_accuracy", 0) * 100, 1),
+            },
+            "fitness": {
+                "initial": round(first["avg_fitness"], 4),
+                "final": round(last["avg_fitness"], 4),
+                "improvement": round(last["avg_fitness"] - first["avg_fitness"], 4),
+            },
+            "dominant_strategy": last["dominant_reasoning"],
+            "verdict": verdict,
+            "verdict_label": verdict_label,
+        })
+
+    # Sort: frontier first, then by test calibration descending
+    results.sort(key=lambda r: (0 if r["category"] == "frontier" else 1, -r["test_set"]["evolved_calibration"]))
+    return results

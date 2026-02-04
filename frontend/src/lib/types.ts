@@ -129,3 +129,37 @@ export const STRATEGY_LABELS: Record<ReasoningStyle, string> = {
   "first-principles": "First Principles",
   "elimination": "Elimination",
 };
+
+export interface ExperimentComparison {
+  id: string;
+  name: string;
+  category: string;
+  generations: number;
+  training: {
+    raw_calibration: number;
+    evolved_calibration: number;
+    gap_pct: number;
+  };
+  test_set: {
+    raw_calibration: number;
+    evolved_calibration: number;
+    gap_pct: number;
+    task_accuracy: number;
+  };
+  fitness: {
+    initial: number;
+    final: number;
+    improvement: number;
+  };
+  dominant_strategy: string;
+  verdict: string;
+  verdict_label: string;
+}
+
+export interface ExperimentInfo {
+  id: string;
+  name: string;
+  category: string;
+  has_data: boolean;
+  active: boolean;
+}
