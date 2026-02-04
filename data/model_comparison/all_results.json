@@ -1,0 +1,1052 @@
+[
+  {
+    "model": "microsoft/Phi-4-mini-instruct",
+    "slug": "phi4_mini",
+    "seed": 45,
+    "elapsed_seconds": 133.7,
+    "training": {
+      "initial_raw_cal": 0.73275,
+      "final_raw_cal": 0.7320333333333333,
+      "initial_evolved_cal": 0.729164,
+      "final_evolved_cal": 0.75883,
+      "gap": 0.02679666666666669,
+      "initial_task_acc": 0.5733333333333334,
+      "final_task_acc": 0.5666666666666667,
+      "initial_fitness": 0.6389650666666666,
+      "final_fitness": 0.652498
+    },
+    "test": {
+      "raw_cal": 0.6875266666666667,
+      "evolved_cal": 0.7192922222222222,
+      "gap": 0.03176555555555549,
+      "task_acc": 0.6444444444444445,
+      "best_fitness": 0.8263333333333334
+    },
+    "dominant_strategy": "first-principles"
+  },
+  {
+    "model": "microsoft/Phi-4-mini-instruct",
+    "slug": "phi4_mini",
+    "seed": 46,
+    "elapsed_seconds": 112.8,
+    "training": {
+      "initial_raw_cal": 0.6909166666666667,
+      "final_raw_cal": 0.58235,
+      "initial_evolved_cal": 0.6941733333333334,
+      "final_evolved_cal": 0.6852566666666666,
+      "gap": 0.10290666666666659,
+      "initial_task_acc": 0.6066666666666667,
+      "final_task_acc": 0.44666666666666666,
+      "initial_fitness": 0.6139706666666667,
+      "final_fitness": 0.551154
+    },
+    "test": {
+      "raw_cal": 0.7872777777777779,
+      "evolved_cal": 0.8298400000000001,
+      "gap": 0.04256222222222228,
+      "task_acc": 0.6888888888888889,
+      "best_fitness": 0.7644444444444445
+    },
+    "dominant_strategy": "chain-of-thought"
+  },
+  {
+    "model": "microsoft/Phi-4-mini-instruct",
+    "slug": "phi4_mini",
+    "seed": 47,
+    "elapsed_seconds": 118.5,
+    "training": {
+      "initial_raw_cal": 0.6474666666666667,
+      "final_raw_cal": 0.7799499999999999,
+      "initial_evolved_cal": 0.6701406666666667,
+      "final_evolved_cal": 0.81811,
+      "gap": 0.03816000000000008,
+      "initial_task_acc": 0.5533333333333333,
+      "final_task_acc": 0.6866666666666666,
+      "initial_fitness": 0.5815510666666667,
+      "final_fitness": 0.7121993333333333
+    },
+    "test": {
+      "raw_cal": 0.8031944444444444,
+      "evolved_cal": 0.83271,
+      "gap": 0.029515555555555517,
+      "task_acc": 0.7666666666666667,
+      "best_fitness": 0.8101177777777777
+    },
+    "dominant_strategy": "first-principles"
+  },
+  {
+    "model": "microsoft/Phi-4-mini-instruct",
+    "slug": "phi4_mini",
+    "seed": 48,
+    "elapsed_seconds": 116.7,
+    "training": {
+      "initial_raw_cal": 0.7778166666666667,
+      "final_raw_cal": 0.7657166666666667,
+      "initial_evolved_cal": 0.7775146666666667,
+      "final_evolved_cal": 0.789644,
+      "gap": 0.0239273333333333,
+      "initial_task_acc": 0.62,
+      "final_task_acc": 0.6133333333333333,
+      "initial_fitness": 0.6502421333333334,
+      "final_fitness": 0.6636530666666667
+    },
+    "test": {
+      "raw_cal": 0.6061944444444444,
+      "evolved_cal": 0.6472866666666667,
+      "gap": 0.04109222222222231,
+      "task_acc": 0.5,
+      "best_fitness": 0.6872288888888889
+    },
+    "dominant_strategy": "analogical"
+  },
+  {
+    "model": "microsoft/Phi-4-mini-instruct",
+    "slug": "phi4_mini",
+    "seed": 49,
+    "elapsed_seconds": 114.6,
+    "training": {
+      "initial_raw_cal": 0.81365,
+      "final_raw_cal": 0.7020500000000001,
+      "initial_evolved_cal": 0.8197693333333333,
+      "final_evolved_cal": 0.7107606666666667,
+      "gap": 0.008710666666666644,
+      "initial_task_acc": 0.72,
+      "final_task_acc": 0.62,
+      "initial_fitness": 0.7043949333333333,
+      "final_fitness": 0.6189897333333333
+    },
+    "test": {
+      "raw_cal": 0.7475833333333333,
+      "evolved_cal": 0.7563033333333333,
+      "gap": 0.008720000000000061,
+      "task_acc": 0.6333333333333333,
+      "best_fitness": 0.7760222222222222
+    },
+    "dominant_strategy": "chain-of-thought"
+  },
+  {
+    "model": "microsoft/Phi-4-mini-instruct",
+    "slug": "phi4_mini",
+    "seed": 50,
+    "elapsed_seconds": 122.2,
+    "training": {
+      "initial_raw_cal": 0.7102833333333334,
+      "final_raw_cal": 0.6766,
+      "initial_evolved_cal": 0.7302673333333333,
+      "final_evolved_cal": 0.7442533333333333,
+      "gap": 0.06765333333333334,
+      "initial_task_acc": 0.5866666666666667,
+      "final_task_acc": 0.6,
+      "initial_fitness": 0.6278937333333333,
+      "final_fitness": 0.633352
+    },
+    "test": {
+      "raw_cal": 0.7158333333333333,
+      "evolved_cal": 0.7817977777777778,
+      "gap": 0.06596444444444449,
+      "task_acc": 0.6111111111111112,
+      "best_fitness": 0.7785555555555557
+    },
+    "dominant_strategy": "elimination"
+  },
+  {
+    "model": "microsoft/Phi-4-mini-instruct",
+    "slug": "phi4_mini",
+    "seed": 51,
+    "elapsed_seconds": 117.9,
+    "training": {
+      "initial_raw_cal": 0.7113906666666667,
+      "final_raw_cal": 0.7341666666666666,
+      "initial_evolved_cal": 0.7311886666666666,
+      "final_evolved_cal": 0.7758233333333333,
+      "gap": 0.041656666666666675,
+      "initial_task_acc": 0.6066666666666667,
+      "final_task_acc": 0.6866666666666666,
+      "initial_fitness": 0.6188465333333333,
+      "final_fitness": 0.6897606666666667
+    },
+    "test": {
+      "raw_cal": 0.47047222222222224,
+      "evolved_cal": 0.5700188888888889,
+      "gap": 0.09954666666666662,
+      "task_acc": 0.35555555555555557,
+      "best_fitness": 0.5512844444444444
+    },
+    "dominant_strategy": "debate-self"
+  },
+  {
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "slug": "llama31_8b",
+    "seed": 45,
+    "elapsed_seconds": 105.8,
+    "training": {
+      "initial_raw_cal": 0.7124626666666667,
+      "final_raw_cal": 0.7661113333333333,
+      "initial_evolved_cal": 0.7020573333333333,
+      "final_evolved_cal": 0.8065513333333333,
+      "gap": 0.04044000000000003,
+      "initial_task_acc": 0.4266666666666667,
+      "final_task_acc": 0.5266666666666666,
+      "initial_fitness": 0.5665677333333333,
+      "final_fitness": 0.6645974666666666
+    },
+    "test": {
+      "raw_cal": 0.7718566666666666,
+      "evolved_cal": 0.80319,
+      "gap": 0.031333333333333324,
+      "task_acc": 0.6444444444444445,
+      "best_fitness": 0.7286111111111111
+    },
+    "dominant_strategy": "chain-of-thought"
+  },
+  {
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "slug": "llama31_8b",
+    "seed": 46,
+    "elapsed_seconds": 89.0,
+    "training": {
+      "initial_raw_cal": 0.7600699999999999,
+      "final_raw_cal": 0.6767386666666666,
+      "initial_evolved_cal": 0.742802,
+      "final_evolved_cal": 0.734466,
+      "gap": 0.05772733333333335,
+      "initial_task_acc": 0.6066666666666667,
+      "final_task_acc": 0.46,
+      "initial_fitness": 0.6390145333333332,
+      "final_fitness": 0.5856129333333333
+    },
+    "test": {
+      "raw_cal": 0.8425133333333333,
+      "evolved_cal": 0.8568188888888888,
+      "gap": 0.01430555555555546,
+      "task_acc": 0.6666666666666666,
+      "best_fitness": 0.7405177777777777
+    },
+    "dominant_strategy": "step-by-step"
+  },
+  {
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "slug": "llama31_8b",
+    "seed": 47,
+    "elapsed_seconds": 73.4,
+    "training": {
+      "initial_raw_cal": 0.7485393333333333,
+      "final_raw_cal": 0.8343966666666667,
+      "initial_evolved_cal": 0.7439193333333334,
+      "final_evolved_cal": 0.8313653333333334,
+      "gap": -0.003031333333333275,
+      "initial_task_acc": 0.56,
+      "final_task_acc": 0.7266666666666667,
+      "initial_fitness": 0.6278182666666667,
+      "final_fitness": 0.7344192
+    },
+    "test": {
+      "raw_cal": 0.8416611111111111,
+      "evolved_cal": 0.8399955555555555,
+      "gap": -0.0016655555555555868,
+      "task_acc": 0.7666666666666667,
+      "best_fitness": 0.7995955555555556
+    },
+    "dominant_strategy": "chain-of-thought"
+  },
+  {
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "slug": "llama31_8b",
+    "seed": 48,
+    "elapsed_seconds": 80.8,
+    "training": {
+      "initial_raw_cal": 0.8166033333333333,
+      "final_raw_cal": 0.8482486666666667,
+      "initial_evolved_cal": 0.8225333333333333,
+      "final_evolved_cal": 0.8435953333333334,
+      "gap": -0.004653333333333287,
+      "initial_task_acc": 0.62,
+      "final_task_acc": 0.7133333333333334,
+      "initial_fitness": 0.6748533333333333,
+      "final_fitness": 0.7312238666666666
+    },
+    "test": {
+      "raw_cal": 0.7292477777777778,
+      "evolved_cal": 0.7746411111111112,
+      "gap": 0.0453933333333334,
+      "task_acc": 0.5444444444444444,
+      "best_fitness": 0.6604733333333334
+    },
+    "dominant_strategy": "debate-self"
+  },
+  {
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "slug": "llama31_8b",
+    "seed": 49,
+    "elapsed_seconds": 82.2,
+    "training": {
+      "initial_raw_cal": 0.803382,
+      "final_raw_cal": 0.7422273333333332,
+      "initial_evolved_cal": 0.7881986666666666,
+      "final_evolved_cal": 0.763262,
+      "gap": 0.021034666666666757,
+      "initial_task_acc": 0.6733333333333333,
+      "final_task_acc": 0.5866666666666667,
+      "initial_fitness": 0.6683858666666667,
+      "final_fitness": 0.6378238666666667
+    },
+    "test": {
+      "raw_cal": 0.7877155555555555,
+      "evolved_cal": 0.8130044444444444,
+      "gap": 0.025288888888888916,
+      "task_acc": 0.5555555555555556,
+      "best_fitness": 0.6815599999999999
+    },
+    "dominant_strategy": "elimination"
+  },
+  {
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "slug": "llama31_8b",
+    "seed": 50,
+    "elapsed_seconds": 110.1,
+    "training": {
+      "initial_raw_cal": 0.7282946666666666,
+      "final_raw_cal": 0.7447819999999999,
+      "initial_evolved_cal": 0.7171673333333334,
+      "final_evolved_cal": 0.7396619999999999,
+      "gap": -0.005120000000000013,
+      "initial_task_acc": 0.5733333333333334,
+      "final_task_acc": 0.56,
+      "initial_fitness": 0.6128337333333334,
+      "final_fitness": 0.6151305333333333
+    },
+    "test": {
+      "raw_cal": 0.7380511111111111,
+      "evolved_cal": 0.7341155555555555,
+      "gap": -0.003935555555555581,
+      "task_acc": 0.6111111111111112,
+      "best_fitness": 0.69654
+    },
+    "dominant_strategy": "chain-of-thought"
+  },
+  {
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "slug": "llama31_8b",
+    "seed": 51,
+    "elapsed_seconds": 84.3,
+    "training": {
+      "initial_raw_cal": 0.807738,
+      "final_raw_cal": 0.8058946666666666,
+      "initial_evolved_cal": 0.8058519999999999,
+      "final_evolved_cal": 0.8123373333333334,
+      "gap": 0.006442666666666708,
+      "initial_task_acc": 0.6066666666666667,
+      "final_task_acc": 0.6666666666666666,
+      "initial_fitness": 0.6613778666666666,
+      "final_fitness": 0.7007357333333333
+    },
+    "test": {
+      "raw_cal": 0.6927988888888889,
+      "evolved_cal": 0.7379722222222223,
+      "gap": 0.0451733333333334,
+      "task_acc": 0.4222222222222222,
+      "best_fitness": 0.6032644444444445
+    },
+    "dominant_strategy": "elimination"
+  },
+  {
+    "model": "Qwen/Qwen2.5-14B-Instruct",
+    "slug": "qwen25_14b",
+    "seed": 45,
+    "elapsed_seconds": 75.2,
+    "training": {
+      "initial_raw_cal": 0.7655333333333333,
+      "final_raw_cal": 0.8249333333333333,
+      "initial_evolved_cal": 0.7652093333333334,
+      "final_evolved_cal": 0.8242633333333333,
+      "gap": -0.0006699999999999484,
+      "initial_task_acc": 0.5733333333333334,
+      "final_task_acc": 0.6666666666666666,
+      "initial_fitness": 0.6583256,
+      "final_fitness": 0.726558
+    },
+    "test": {
+      "raw_cal": 0.8527222222222223,
+      "evolved_cal": 0.8528655555555557,
+      "gap": 0.00014333333333338416,
+      "task_acc": 0.7777777777777778,
+      "best_fitness": 0.7680066666666667
+    },
+    "dominant_strategy": "analogical"
+  },
+  {
+    "model": "Qwen/Qwen2.5-14B-Instruct",
+    "slug": "qwen25_14b",
+    "seed": 46,
+    "elapsed_seconds": 63.1,
+    "training": {
+      "initial_raw_cal": 0.8017500000000001,
+      "final_raw_cal": 0.7841666666666667,
+      "initial_evolved_cal": 0.7792426666666666,
+      "final_evolved_cal": 0.8033366666666667,
+      "gap": 0.01917000000000002,
+      "initial_task_acc": 0.68,
+      "final_task_acc": 0.6266666666666667,
+      "initial_fitness": 0.6860789333333333,
+      "final_fitness": 0.6806686666666666
+    },
+    "test": {
+      "raw_cal": 0.8266666666666668,
+      "evolved_cal": 0.8400188888888889,
+      "gap": 0.013352222222222099,
+      "task_acc": 0.7,
+      "best_fitness": 0.7715399999999999
+    },
+    "dominant_strategy": "analogical"
+  },
+  {
+    "model": "Qwen/Qwen2.5-14B-Instruct",
+    "slug": "qwen25_14b",
+    "seed": 47,
+    "elapsed_seconds": 61.3,
+    "training": {
+      "initial_raw_cal": 0.7735666666666666,
+      "final_raw_cal": 0.8853666666666667,
+      "initial_evolved_cal": 0.7658013333333333,
+      "final_evolved_cal": 0.8770166666666668,
+      "gap": -0.008349999999999969,
+      "initial_task_acc": 0.6066666666666667,
+      "final_task_acc": 0.7933333333333333,
+      "initial_fitness": 0.6544141333333333,
+      "final_fitness": 0.7831433333333333
+    },
+    "test": {
+      "raw_cal": 0.9121111111111111,
+      "evolved_cal": 0.8843166666666666,
+      "gap": -0.027794444444444455,
+      "task_acc": 0.8777777777777778,
+      "best_fitness": 0.8199444444444445
+    },
+    "dominant_strategy": "debate-self"
+  },
+  {
+    "model": "Qwen/Qwen2.5-14B-Instruct",
+    "slug": "qwen25_14b",
+    "seed": 48,
+    "elapsed_seconds": 57.1,
+    "training": {
+      "initial_raw_cal": 0.8303833333333334,
+      "final_raw_cal": 0.87395,
+      "initial_evolved_cal": 0.8286633333333333,
+      "final_evolved_cal": 0.875086,
+      "gap": 0.0011360000000000259,
+      "initial_task_acc": 0.6866666666666666,
+      "final_task_acc": 0.8,
+      "initial_fitness": 0.7029313333333334,
+      "final_fitness": 0.7814516
+    },
+    "test": {
+      "raw_cal": 0.677611111111111,
+      "evolved_cal": 0.6851133333333334,
+      "gap": 0.007502222222222299,
+      "task_acc": 0.5555555555555556,
+      "best_fitness": 0.5998066666666666
+    },
+    "dominant_strategy": "elimination"
+  },
+  {
+    "model": "Qwen/Qwen2.5-14B-Instruct",
+    "slug": "qwen25_14b",
+    "seed": 49,
+    "elapsed_seconds": 73.2,
+    "training": {
+      "initial_raw_cal": 0.8923333333333333,
+      "final_raw_cal": 0.8358,
+      "initial_evolved_cal": 0.8814026666666667,
+      "final_evolved_cal": 0.8462133333333334,
+      "gap": 0.010413333333333386,
+      "initial_task_acc": 0.82,
+      "final_task_acc": 0.68,
+      "initial_fitness": 0.7748416,
+      "final_fitness": 0.7182613333333333
+    },
+    "test": {
+      "raw_cal": 0.8005277777777777,
+      "evolved_cal": 0.8125988888888889,
+      "gap": 0.012071111111111144,
+      "task_acc": 0.6444444444444445,
+      "best_fitness": 0.71556
+    },
+    "dominant_strategy": "chain-of-thought"
+  },
+  {
+    "model": "Qwen/Qwen2.5-14B-Instruct",
+    "slug": "qwen25_14b",
+    "seed": 50,
+    "elapsed_seconds": 74.5,
+    "training": {
+      "initial_raw_cal": 0.79925,
+      "final_raw_cal": 0.8180499999999999,
+      "initial_evolved_cal": 0.7851440000000001,
+      "final_evolved_cal": 0.8344199999999999,
+      "gap": 0.016369999999999996,
+      "initial_task_acc": 0.6066666666666667,
+      "final_task_acc": 0.6933333333333334,
+      "initial_fitness": 0.6646864,
+      "final_fitness": 0.7177186666666666
+    },
+    "test": {
+      "raw_cal": 0.8193888888888888,
+      "evolved_cal": 0.8118344444444444,
+      "gap": -0.007554444444444419,
+      "task_acc": 0.8111111111111111,
+      "best_fitness": 0.7990044444444444
+    },
+    "dominant_strategy": "analogical"
+  },
+  {
+    "model": "Qwen/Qwen2.5-14B-Instruct",
+    "slug": "qwen25_14b",
+    "seed": 51,
+    "elapsed_seconds": 67.5,
+    "training": {
+      "initial_raw_cal": 0.8020166666666666,
+      "final_raw_cal": 0.8442166666666666,
+      "initial_evolved_cal": 0.79516,
+      "final_evolved_cal": 0.85118,
+      "gap": 0.006963333333333432,
+      "initial_task_acc": 0.6333333333333333,
+      "final_task_acc": 0.7266666666666667,
+      "initial_fitness": 0.664296,
+      "final_fitness": 0.7457746666666667
+    },
+    "test": {
+      "raw_cal": 0.6459166666666667,
+      "evolved_cal": 0.6757288888888889,
+      "gap": 0.02981222222222224,
+      "task_acc": 0.5111111111111111,
+      "best_fitness": 0.6029266666666667
+    },
+    "dominant_strategy": "chain-of-thought"
+  },
+  {
+    "model": "openai/gpt-oss-20b",
+    "slug": "gpt_oss_20b",
+    "seed": 45,
+    "elapsed_seconds": 357.4,
+    "training": {
+      "initial_raw_cal": 0.7970106666666666,
+      "final_raw_cal": 0.8927953333333333,
+      "initial_evolved_cal": 0.7954260000000001,
+      "final_evolved_cal": 0.8952939999999999,
+      "gap": 0.002498666666666649,
+      "initial_task_acc": 0.62,
+      "final_task_acc": 0.7133333333333334,
+      "initial_fitness": 0.6940556,
+      "final_fitness": 0.7853097333333333
+    },
+    "test": {
+      "raw_cal": 0.9338144444444445,
+      "evolved_cal": 0.9341522222222223,
+      "gap": 0.0003377777777777702,
+      "task_acc": 0.8333333333333334,
+      "best_fitness": 0.8661533333333333
+    },
+    "dominant_strategy": "first-principles"
+  },
+  {
+    "model": "openai/gpt-oss-20b",
+    "slug": "gpt_oss_20b",
+    "seed": 46,
+    "elapsed_seconds": 359.0,
+    "training": {
+      "initial_raw_cal": 0.7993426666666666,
+      "final_raw_cal": 0.7933833333333333,
+      "initial_evolved_cal": 0.7894926666666667,
+      "final_evolved_cal": 0.828238,
+      "gap": 0.0348546666666667,
+      "initial_task_acc": 0.68,
+      "final_task_acc": 0.6533333333333333,
+      "initial_fitness": 0.6926289333333333,
+      "final_fitness": 0.7058761333333333
+    },
+    "test": {
+      "raw_cal": 0.8501433333333334,
+      "evolved_cal": 0.8741344444444444,
+      "gap": 0.023991111111111074,
+      "task_acc": 0.7222222222222222,
+      "best_fitness": 0.8467711111111111
+    },
+    "dominant_strategy": "analogical"
+  },
+  {
+    "model": "openai/gpt-oss-20b",
+    "slug": "gpt_oss_20b",
+    "seed": 47,
+    "elapsed_seconds": 289.1,
+    "training": {
+      "initial_raw_cal": 0.8141833333333334,
+      "final_raw_cal": 0.9449086666666666,
+      "initial_evolved_cal": 0.7962813333333333,
+      "final_evolved_cal": 0.9363513333333333,
+      "gap": -0.008557333333333306,
+      "initial_task_acc": 0.6733333333333333,
+      "final_task_acc": 0.8733333333333333,
+      "initial_fitness": 0.6975021333333333,
+      "final_fitness": 0.8480774666666667
+    },
+    "test": {
+      "raw_cal": 0.9530322222222222,
+      "evolved_cal": 0.9547855555555556,
+      "gap": 0.0017533333333333845,
+      "task_acc": 0.9333333333333333,
+      "best_fitness": 0.9177177777777779
+    },
+    "dominant_strategy": "first-principles"
+  },
+  {
+    "model": "openai/gpt-oss-20b",
+    "slug": "gpt_oss_20b",
+    "seed": 48,
+    "elapsed_seconds": 336.1,
+    "training": {
+      "initial_raw_cal": 0.9244873333333333,
+      "final_raw_cal": 0.9343426666666667,
+      "initial_evolved_cal": 0.9220266666666667,
+      "final_evolved_cal": 0.9346793333333333,
+      "gap": 0.0003366666666666518,
+      "initial_task_acc": 0.7866666666666666,
+      "final_task_acc": 0.8333333333333334,
+      "initial_fitness": 0.7937493333333333,
+      "final_fitness": 0.8286742666666667
+    },
+    "test": {
+      "raw_cal": 0.7287377777777777,
+      "evolved_cal": 0.7602544444444445,
+      "gap": 0.03151666666666675,
+      "task_acc": 0.7,
+      "best_fitness": 0.7239555555555556
+    },
+    "dominant_strategy": "step-by-step"
+  },
+  {
+    "model": "openai/gpt-oss-20b",
+    "slug": "gpt_oss_20b",
+    "seed": 49,
+    "elapsed_seconds": 303.5,
+    "training": {
+      "initial_raw_cal": 0.9237046666666667,
+      "final_raw_cal": 0.94145,
+      "initial_evolved_cal": 0.9165540000000001,
+      "final_evolved_cal": 0.9444619999999999,
+      "gap": 0.0030119999999999036,
+      "initial_task_acc": 0.78,
+      "final_task_acc": 0.9333333333333333,
+      "initial_fitness": 0.7801990666666667,
+      "final_fitness": 0.8702772
+    },
+    "test": {
+      "raw_cal": 0.7490455555555556,
+      "evolved_cal": 0.7191088888888889,
+      "gap": -0.029936666666666722,
+      "task_acc": 0.5777777777777777,
+      "best_fitness": 0.698
+    },
+    "dominant_strategy": "first-principles"
+  },
+  {
+    "model": "openai/gpt-oss-20b",
+    "slug": "gpt_oss_20b",
+    "seed": 50,
+    "elapsed_seconds": 344.3,
+    "training": {
+      "initial_raw_cal": 0.8270393333333333,
+      "final_raw_cal": 0.8443753333333334,
+      "initial_evolved_cal": 0.8145806666666666,
+      "final_evolved_cal": 0.8219613333333333,
+      "gap": -0.022414000000000045,
+      "initial_task_acc": 0.72,
+      "final_task_acc": 0.7733333333333333,
+      "initial_fitness": 0.7231484,
+      "final_fitness": 0.7391768
+    },
+    "test": {
+      "raw_cal": 0.8186088888888889,
+      "evolved_cal": 0.7865077777777778,
+      "gap": -0.032101111111111136,
+      "task_acc": 0.6555555555555556,
+      "best_fitness": 0.6942222222222223
+    },
+    "dominant_strategy": "elimination"
+  },
+  {
+    "model": "openai/gpt-oss-20b",
+    "slug": "gpt_oss_20b",
+    "seed": 51,
+    "elapsed_seconds": 342.2,
+    "training": {
+      "initial_raw_cal": 0.8615219999999999,
+      "final_raw_cal": 0.922494,
+      "initial_evolved_cal": 0.8522926666666667,
+      "final_evolved_cal": 0.9223126666666667,
+      "gap": -0.00018133333333336665,
+      "initial_task_acc": 0.78,
+      "final_task_acc": 0.8,
+      "initial_fitness": 0.7520422666666666,
+      "final_fitness": 0.8147209333333333
+    },
+    "test": {
+      "raw_cal": 0.6836688888888889,
+      "evolved_cal": 0.7589400000000001,
+      "gap": 0.07527111111111118,
+      "task_acc": 0.5111111111111111,
+      "best_fitness": 0.7064577777777777
+    },
+    "dominant_strategy": "first-principles"
+  },
+  {
+    "model": "meta-llama/Llama-3.3-70B-Instruct",
+    "slug": "llama33_70b",
+    "seed": 45,
+    "elapsed_seconds": 95.4,
+    "training": {
+      "initial_raw_cal": 0.7126333333333333,
+      "final_raw_cal": 0.8238666666666666,
+      "initial_evolved_cal": 0.7278066666666667,
+      "final_evolved_cal": 0.8425666666666666,
+      "gap": 0.01869999999999994,
+      "initial_task_acc": 0.5333333333333333,
+      "final_task_acc": 0.6666666666666666,
+      "initial_fitness": 0.6233506666666667,
+      "final_fitness": 0.7388733333333333
+    },
+    "test": {
+      "raw_cal": 0.8254722222222222,
+      "evolved_cal": 0.836361111111111,
+      "gap": 0.010888888888888837,
+      "task_acc": 0.7777777777777778,
+      "best_fitness": 0.7557711111111112
+    },
+    "dominant_strategy": "elimination"
+  },
+  {
+    "model": "meta-llama/Llama-3.3-70B-Instruct",
+    "slug": "llama33_70b",
+    "seed": 46,
+    "elapsed_seconds": 61.6,
+    "training": {
+      "initial_raw_cal": 0.8066666666666666,
+      "final_raw_cal": 0.6779666666666666,
+      "initial_evolved_cal": 0.8034446666666667,
+      "final_evolved_cal": 0.7499899999999999,
+      "gap": 0.07202333333333333,
+      "initial_task_acc": 0.7333333333333333,
+      "final_task_acc": 0.5,
+      "initial_fitness": 0.7207334666666666,
+      "final_fitness": 0.6079939999999999
+    },
+    "test": {
+      "raw_cal": 0.8887222222222222,
+      "evolved_cal": 0.8945144444444444,
+      "gap": 0.005792222222222199,
+      "task_acc": 0.7777777777777778,
+      "best_fitness": 0.7807711111111111
+    },
+    "dominant_strategy": "elimination"
+  },
+  {
+    "model": "meta-llama/Llama-3.3-70B-Instruct",
+    "slug": "llama33_70b",
+    "seed": 47,
+    "elapsed_seconds": 49.3,
+    "training": {
+      "initial_raw_cal": 0.71785,
+      "final_raw_cal": 0.8830166666666666,
+      "initial_evolved_cal": 0.7200473333333333,
+      "final_evolved_cal": 0.88036,
+      "gap": -0.0026566666666665295,
+      "initial_task_acc": 0.6,
+      "final_task_acc": 0.8,
+      "initial_fitness": 0.6280284,
+      "final_fitness": 0.7908826666666666
+    },
+    "test": {
+      "raw_cal": 0.8619444444444445,
+      "evolved_cal": 0.8698722222222222,
+      "gap": 0.007927777777777645,
+      "task_acc": 0.8222222222222222,
+      "best_fitness": 0.8161666666666667
+    },
+    "dominant_strategy": "elimination"
+  },
+  {
+    "model": "meta-llama/Llama-3.3-70B-Instruct",
+    "slug": "llama33_70b",
+    "seed": 48,
+    "elapsed_seconds": 87.7,
+    "training": {
+      "initial_raw_cal": 0.837548,
+      "final_raw_cal": 0.8677333333333334,
+      "initial_evolved_cal": 0.8341606666666667,
+      "final_evolved_cal": 0.8683206666666666,
+      "gap": 0.0005873333333332731,
+      "initial_task_acc": 0.68,
+      "final_task_acc": 0.76,
+      "initial_fitness": 0.7039630666666666,
+      "final_fitness": 0.7639257333333334
+    },
+    "test": {
+      "raw_cal": 0.6865555555555556,
+      "evolved_cal": 0.6901566666666666,
+      "gap": 0.003601111111111055,
+      "task_acc": 0.5555555555555556,
+      "best_fitness": 0.6002399999999999
+    },
+    "dominant_strategy": "first-principles"
+  },
+  {
+    "model": "meta-llama/Llama-3.3-70B-Instruct",
+    "slug": "llama33_70b",
+    "seed": 49,
+    "elapsed_seconds": 114.9,
+    "training": {
+      "initial_raw_cal": 0.8233326666666666,
+      "final_raw_cal": 0.7773333333333333,
+      "initial_evolved_cal": 0.8104086666666667,
+      "final_evolved_cal": 0.80282,
+      "gap": 0.025486666666666657,
+      "initial_task_acc": 0.7333333333333333,
+      "final_task_acc": 0.68,
+      "initial_fitness": 0.7049118666666667,
+      "final_fitness": 0.6971586666666666
+    },
+    "test": {
+      "raw_cal": 0.7135,
+      "evolved_cal": 0.7638711111111112,
+      "gap": 0.050371111111111144,
+      "task_acc": 0.5555555555555556,
+      "best_fitness": 0.635
+    },
+    "dominant_strategy": "chain-of-thought"
+  },
+  {
+    "model": "meta-llama/Llama-3.3-70B-Instruct",
+    "slug": "llama33_70b",
+    "seed": 50,
+    "elapsed_seconds": 117.2,
+    "training": {
+      "initial_raw_cal": 0.8547666666666667,
+      "final_raw_cal": 0.7620333333333332,
+      "initial_evolved_cal": 0.853692,
+      "final_evolved_cal": 0.7811633333333333,
+      "gap": 0.01913000000000009,
+      "initial_task_acc": 0.74,
+      "final_task_acc": 0.6733333333333333,
+      "initial_fitness": 0.7546152,
+      "final_fitness": 0.6816313333333334
+    },
+    "test": {
+      "raw_cal": 0.7585,
+      "evolved_cal": 0.7811344444444444,
+      "gap": 0.0226344444444444,
+      "task_acc": 0.6666666666666666,
+      "best_fitness": 0.69136
+    },
+    "dominant_strategy": "first-principles"
+  },
+  {
+    "model": "meta-llama/Llama-3.3-70B-Instruct",
+    "slug": "llama33_70b",
+    "seed": 51,
+    "elapsed_seconds": 95.5,
+    "training": {
+      "initial_raw_cal": 0.7967833333333333,
+      "final_raw_cal": 0.851216,
+      "initial_evolved_cal": 0.8057666666666666,
+      "final_evolved_cal": 0.863602,
+      "gap": 0.012386000000000008,
+      "initial_task_acc": 0.64,
+      "final_task_acc": 0.7666666666666667,
+      "initial_fitness": 0.67386,
+      "final_fitness": 0.7688278666666667
+    },
+    "test": {
+      "raw_cal": 0.624361111111111,
+      "evolved_cal": 0.7110599999999999,
+      "gap": 0.08669888888888888,
+      "task_acc": 0.4444444444444444,
+      "best_fitness": 0.5807711111111111
+    },
+    "dominant_strategy": "chain-of-thought"
+  },
+  {
+    "model": "deepseek-ai/DeepSeek-V3.1",
+    "slug": "deepseek_v3_1",
+    "seed": 45,
+    "elapsed_seconds": 161.2,
+    "training": {
+      "initial_raw_cal": 0.81565,
+      "final_raw_cal": 0.8996833333333333,
+      "initial_evolved_cal": 0.811882,
+      "final_evolved_cal": 0.8842153333333335,
+      "gap": -0.015467999999999815,
+      "initial_task_acc": 0.7133333333333334,
+      "final_task_acc": 0.7533333333333333,
+      "initial_fitness": 0.7391292,
+      "final_fitness": 0.7942625333333334
+    },
+    "test": {
+      "raw_cal": 0.8985833333333334,
+      "evolved_cal": 0.9009711111111112,
+      "gap": 0.0023877777777777665,
+      "task_acc": 0.8333333333333334,
+      "best_fitness": 0.8562533333333333
+    },
+    "dominant_strategy": "step-by-step"
+  },
+  {
+    "model": "deepseek-ai/DeepSeek-V3.1",
+    "slug": "deepseek_v3_1",
+    "seed": 46,
+    "elapsed_seconds": 127.7,
+    "training": {
+      "initial_raw_cal": 0.8158653333333333,
+      "final_raw_cal": 0.7916,
+      "initial_evolved_cal": 0.81589,
+      "final_evolved_cal": 0.787328,
+      "gap": -0.0042719999999999425,
+      "initial_task_acc": 0.7733333333333333,
+      "final_task_acc": 0.8133333333333334,
+      "initial_fitness": 0.7436673333333333,
+      "final_fitness": 0.7403968
+    },
+    "test": {
+      "raw_cal": 0.9201111111111111,
+      "evolved_cal": 0.913811111111111,
+      "gap": -0.006300000000000083,
+      "task_acc": 0.8333333333333334,
+      "best_fitness": 0.8462511111111112
+    },
+    "dominant_strategy": "analogical"
+  },
+  {
+    "model": "deepseek-ai/DeepSeek-V3.1",
+    "slug": "deepseek_v3_1",
+    "seed": 47,
+    "elapsed_seconds": 141.9,
+    "training": {
+      "initial_raw_cal": 0.8051633333333333,
+      "final_raw_cal": 0.8985920000000001,
+      "initial_evolved_cal": 0.8069893333333333,
+      "final_evolved_cal": 0.8882893333333334,
+      "gap": -0.010302666666666682,
+      "initial_task_acc": 0.6933333333333334,
+      "final_task_acc": 0.8666666666666667,
+      "initial_fitness": 0.7111269333333333,
+      "final_fitness": 0.8167069333333334
+    },
+    "test": {
+      "raw_cal": 0.9342411111111111,
+      "evolved_cal": 0.9285666666666667,
+      "gap": -0.005674444444444426,
+      "task_acc": 0.8888888888888888,
+      "best_fitness": 0.8886711111111112
+    },
+    "dominant_strategy": "elimination"
+  },
+  {
+    "model": "deepseek-ai/DeepSeek-V3.1",
+    "slug": "deepseek_v3_1",
+    "seed": 48,
+    "elapsed_seconds": 128.2,
+    "training": {
+      "initial_raw_cal": 0.9037626666666667,
+      "final_raw_cal": 0.9309166666666666,
+      "initial_evolved_cal": 0.8908313333333333,
+      "final_evolved_cal": 0.9165433333333334,
+      "gap": -0.014373333333333238,
+      "initial_task_acc": 0.7933333333333333,
+      "final_task_acc": 0.9066666666666666,
+      "initial_fitness": 0.7786321333333334,
+      "final_fitness": 0.8452593333333333
+    },
+    "test": {
+      "raw_cal": 0.7814711111111112,
+      "evolved_cal": 0.7876,
+      "gap": 0.006128888888888739,
+      "task_acc": 0.7444444444444445,
+      "best_fitness": 0.8000177777777777
+    },
+    "dominant_strategy": "elimination"
+  },
+  {
+    "model": "deepseek-ai/DeepSeek-V3.1",
+    "slug": "deepseek_v3_1",
+    "seed": 49,
+    "elapsed_seconds": 162.7,
+    "training": {
+      "initial_raw_cal": 0.9321193333333334,
+      "final_raw_cal": 0.93335,
+      "initial_evolved_cal": 0.9301186666666666,
+      "final_evolved_cal": 0.9376386666666667,
+      "gap": 0.004288666666666718,
+      "initial_task_acc": 0.88,
+      "final_task_acc": 0.9133333333333333,
+      "initial_fitness": 0.8258045333333334,
+      "final_fitness": 0.8591165333333333
+    },
+    "test": {
+      "raw_cal": 0.7689155555555556,
+      "evolved_cal": 0.770958888888889,
+      "gap": 0.002043333333333397,
+      "task_acc": 0.7222222222222222,
+      "best_fitness": 0.8024355555555556
+    },
+    "dominant_strategy": "chain-of-thought"
+  },
+  {
+    "model": "deepseek-ai/DeepSeek-V3.1",
+    "slug": "deepseek_v3_1",
+    "seed": 50,
+    "elapsed_seconds": 140.5,
+    "training": {
+      "initial_raw_cal": 0.8815653333333334,
+      "final_raw_cal": 0.8486333333333334,
+      "initial_evolved_cal": 0.8801213333333334,
+      "final_evolved_cal": 0.8472500000000001,
+      "gap": -0.001383333333333292,
+      "initial_task_acc": 0.8866666666666667,
+      "final_task_acc": 0.7933333333333333,
+      "initial_fitness": 0.8250061333333333,
+      "final_fitness": 0.76195
+    },
+    "test": {
+      "raw_cal": 0.8378866666666667,
+      "evolved_cal": 0.8335433333333333,
+      "gap": -0.004343333333333366,
+      "task_acc": 0.8,
+      "best_fitness": 0.8298377777777778
+    },
+    "dominant_strategy": "step-by-step"
+  },
+  {
+    "model": "deepseek-ai/DeepSeek-V3.1",
+    "slug": "deepseek_v3_1",
+    "seed": 51,
+    "elapsed_seconds": 139.1,
+    "training": {
+      "initial_raw_cal": 0.8946653333333334,
+      "final_raw_cal": 0.9442833333333334,
+      "initial_evolved_cal": 0.8871906666666667,
+      "final_evolved_cal": 0.9429686666666667,
+      "gap": -0.0013146666666666862,
+      "initial_task_acc": 0.8533333333333334,
+      "final_task_acc": 0.8666666666666667,
+      "initial_fitness": 0.7992477333333333,
+      "final_fitness": 0.8511145333333333
+    },
+    "test": {
+      "raw_cal": 0.7060833333333333,
+      "evolved_cal": 0.6962766666666667,
+      "gap": -0.00980666666666663,
+      "task_acc": 0.5444444444444444,
+      "best_fitness": 0.65942
+    },
+    "dominant_strategy": "first-principles"
+  }
+]

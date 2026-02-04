@@ -1,0 +1,25 @@
+{
+  "model": "microsoft/Phi-4-mini-instruct",
+  "slug": "phi4_mini",
+  "seed": 48,
+  "elapsed_seconds": 116.7,
+  "training": {
+    "initial_raw_cal": 0.7778166666666667,
+    "final_raw_cal": 0.7657166666666667,
+    "initial_evolved_cal": 0.7775146666666667,
+    "final_evolved_cal": 0.789644,
+    "gap": 0.0239273333333333,
+    "initial_task_acc": 0.62,
+    "final_task_acc": 0.6133333333333333,
+    "initial_fitness": 0.6502421333333334,
+    "final_fitness": 0.6636530666666667
+  },
+  "test": {
+    "raw_cal": 0.6061944444444444,
+    "evolved_cal": 0.6472866666666667,
+    "gap": 0.04109222222222231,
+    "task_acc": 0.5,
+    "best_fitness": 0.6872288888888889
+  },
+  "dominant_strategy": "analogical"
+}

@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Better Prompts or a Better Model? - Blake Ledden</title>
+  <meta name="description" content="Evolutionary experiments across six LLMs from 3.8B to 671B parameters reveal where system optimization helps and where you should just upgrade the model.">
+  <meta property="og:title" content="Better Prompts or a Better Model?">
+  <meta property="og:description" content="60 experiments across six LLMs reveal the threshold where prompt engineering stops being worth it.">
+  <meta property="og:type" content="article">
+  <style>
+    @font-face {
+      font-family: 'Atkinson';
+      src: url('/fonts/atkinson-regular.woff') format('woff');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Atkinson';
+      src: url('/fonts/atkinson-bold.woff') format('woff');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --accent: #2337ff;
+      --accent-dark: #000d8a;
+      --black: 15, 18, 25;
+      --gray: 96, 115, 159;
+      --gray-light: 229, 233, 240;
+      --gray-dark: 34, 41, 57;
+      --gray-gradient: rgba(var(--gray-light), 50%), #fff;
+      --box-shadow: 0 2px 6px rgba(var(--gray), 25%),
+                    0 8px 24px rgba(var(--gray), 33%),
+                    0 16px 32px rgba(var(--gray), 33%);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Atkinson', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      font-size: 20px;
+      line-height: 1.7;
+      color: rgb(var(--gray-dark));
+      background: #fff;
+    }
+
+    header {
+      border-bottom: 1px solid rgba(var(--gray-light), 1);
+      padding: 1em 2em;
+    }
+    header nav {
+      display: flex;
+      align-items: center;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    header h2 { margin: 0; font-size: 1.2em; }
+    header h2 a {
+      color: rgb(var(--black));
+      text-decoration: none;
+    }
+    header nav > div {
+      margin-left: 2em;
+    }
+    header nav > div:last-child {
+      margin-left: auto;
+    }
+    header a {
+      color: rgb(var(--gray));
+      text-decoration: none;
+      padding: 0 0.5em;
+    }
+    header a:hover { color: rgb(var(--black)); }
+    .social-links a { font-size: 0.85em; }
+
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 2em 1em;
+    }
+
+    .title {
+      text-align: center;
+      margin-bottom: 2em;
+      padding-bottom: 1em;
+      border-bottom: 1px solid rgba(var(--gray-light), 1);
+    }
+    .title h1 {
+      font-size: 2.2em;
+      line-height: 1.2;
+      color: rgb(var(--black));
+      margin-bottom: 0.3em;
+    }
+    .date {
+      color: rgb(var(--gray));
+      font-size: 0.85em;
+    }
+
+    .prose h2 {
+      font-size: 1.4em;
+      margin-top: 2.5em;
+      margin-bottom: 0.5em;
+      color: rgb(var(--black));
+    }
+    .prose h3 {
+      font-size: 1.15em;
+      margin-top: 1.8em;
+      margin-bottom: 0.4em;
+    }
+    .prose p {
+      margin-bottom: 1em;
+    }
+    .prose a {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+    .prose a:hover { color: var(--accent-dark); }
+    .prose strong { color: rgb(var(--black)); }
+    .prose ul, .prose ol {
+      margin-bottom: 1em;
+      padding-left: 1.5em;
+    }
+    .prose li { margin-bottom: 0.4em; }
+    .prose hr {
+      border: none;
+      border-top: 1px solid rgba(var(--gray-light), 1);
+      margin: 2em 0;
+    }
+    .prose code {
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      background: rgba(var(--gray-light), 0.5);
+      padding: 0.15em 0.35em;
+      border-radius: 3px;
+      font-size: 0.85em;
+    }
+    .prose pre {
+      background: rgb(var(--gray-dark));
+      color: rgba(var(--gray-light), 1);
+      padding: 1.2em 1.5em;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin-bottom: 1.5em;
+      font-size: 0.8em;
+      line-height: 1.5;
+    }
+    .prose pre code {
+      background: none;
+      padding: 0;
+      color: inherit;
+    }
+
+    /* Abstract / TL;DR */
+    .abstract {
+      background: linear-gradient(135deg, rgba(var(--gray-light), 0.3), rgba(var(--gray-light), 0.1));
+      border: 1px solid rgba(var(--gray-light), 1);
+      border-radius: 12px;
+      padding: 1.5em 1.8em;
+      margin-bottom: 2em;
+    }
+    .abstract-label {
+      font-size: 0.7em;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgb(var(--gray));
+      margin-bottom: 0.5em;
+    }
+    .abstract p { margin-bottom: 0.5em; }
+    .abstract p:last-child { margin-bottom: 0; }
+
+    /* Stat cards */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1em;
+      margin: 1.5em 0;
+    }
+    .stat-card {
+      background: #fff;
+      border: 1px solid rgba(var(--gray-light), 1);
+      border-radius: 10px;
+      padding: 1em;
+      text-align: center;
+      box-shadow: 0 1px 3px rgba(var(--gray), 10%);
+    }
+    .stat-card.positive { border-left: 4px solid #22c55e; }
+    .stat-card.negative { border-left: 4px solid #ef4444; }
+    .stat-card.neutral { border-left: 4px solid var(--accent); }
+    .stat-value {
+      font-size: 1.6em;
+      font-weight: 700;
+      color: rgb(var(--black));
+      line-height: 1.2;
+    }
+    .stat-label {
+      font-size: 0.7em;
+      color: rgb(var(--gray));
+      margin-top: 0.3em;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Finding boxes */
+    .finding {
+      background: linear-gradient(135deg, #f0f7ff, #f8faff);
+      border: 1px solid #d0dff5;
+      border-radius: 10px;
+      padding: 1.2em 1.5em;
+      margin: 1.5em 0;
+    }
+    .finding-label {
+      font-size: 0.65em;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      margin-bottom: 0.5em;
+    }
+    .finding p { margin-bottom: 0; }
+
+    /* Callout */
+    .callout {
+      border-left: 4px solid var(--accent);
+      background: rgba(var(--gray-light), 0.2);
+      padding: 1em 1.2em;
+      margin: 1.5em 0;
+      border-radius: 0 8px 8px 0;
+    }
+    .callout p { margin-bottom: 0; }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5em 0;
+      font-size: 0.85em;
+    }
+    th, td {
+      padding: 0.6em 0.8em;
+      text-align: left;
+      border-bottom: 1px solid rgba(var(--gray-light), 1);
+    }
+    th {
+      font-weight: 700;
+      color: rgb(var(--black));
+      background: rgba(var(--gray-light), 0.3);
+      font-size: 0.9em;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    tr:hover { background: rgba(var(--gray-light), 0.15); }
+    .sig { font-weight: 700; color: var(--accent); }
+    .pos { color: #16a34a; font-weight: 600; }
+    .neg { color: #dc2626; }
+    .neu { color: rgb(var(--gray)); }
+
+    /* Section numbers */
+    .section-num {
+      font-size: 0.65em;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 0.2em;
+    }
+
+    /* Chart placeholder */
+    .chart-container {
+      background: rgba(var(--gray-light), 0.15);
+      border: 1px solid rgba(var(--gray-light), 1);
+      border-radius: 10px;
+      padding: 1.5em;
+      margin: 1.5em 0;
+      text-align: center;
+    }
+    .chart-container canvas {
+      max-width: 100%;
+    }
+
+    footer {
+      border-top: 1px solid rgba(var(--gray-light), 1);
+      padding: 2em;
+      text-align: center;
+      color: rgb(var(--gray));
+      font-size: 0.85em;
+      margin-top: 3em;
+    }
+    footer .social-links { margin-top: 0.5em; }
+    footer a {
+      color: rgb(var(--gray));
+      text-decoration: none;
+      padding: 0 0.5em;
+    }
+    footer a:hover { color: rgb(var(--black)); }
+
+    /* Bar chart via CSS */
+    .bar-chart {
+      margin: 1.5em 0;
+    }
+    .bar-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.6em;
+    }
+    .bar-label {
+      width: 140px;
+      font-size: 0.8em;
+      font-weight: 600;
+      color: rgb(var(--gray-dark));
+      text-align: right;
+      padding-right: 1em;
+      flex-shrink: 0;
+    }
+    .bar-track {
+      flex: 1;
+      height: 28px;
+      background: rgba(var(--gray-light), 0.4);
+      border-radius: 4px;
+      position: relative;
+      overflow: visible;
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      position: absolute;
+      top: 0;
+      transition: width 0.3s;
+    }
+    .bar-fill.positive { background: #22c55e; left: 50%; }
+    .bar-fill.negative { background: #ef4444; right: 50%; }
+    .bar-fill.zero-line {
+      width: 1px;
+      background: rgb(var(--gray));
+      left: 50%;
+      height: 100%;
+    }
+    .bar-val {
+      font-size: 0.75em;
+      font-weight: 600;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      white-space: nowrap;
+    }
+    .bar-val.right { right: -4em; color: rgb(var(--gray-dark)); }
+    .bar-val.left { left: -4em; color: rgb(var(--gray-dark)); text-align: right; }
+
+    .seed-dots {
+      display: flex;
+      gap: 4px;
+      margin-top: 0.3em;
+    }
+    .seed-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 1px solid rgba(var(--gray), 0.3);
+    }
+    .seed-dot.pos { background: #22c55e; }
+    .seed-dot.neg { background: #ef4444; }
+
+    @media (max-width: 720px) {
+      main { padding: 1.5em 1em; }
+      .title h1 { font-size: 1.6em; }
+      body { font-size: 18px; }
+      .stat-row { grid-template-columns: repeat(2, 1fr); }
+      .bar-label { width: 100px; font-size: 0.7em; }
+      .social-links { display: none; }
+    }
+    @media (max-width: 480px) {
+      .stat-row { grid-template-columns: 1fr 1fr; }
+      .title h1 { font-size: 1.4em; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <h2><a href="/">Blake Ledden</a></h2>
+      <div>
+        <a href="/">Home</a>
+        <a href="/blog">Blog</a>
+      </div>
+      <div class="social-links">
+        <a href="https://github.com/bledden">GitHub</a>
+        <a href="https://linkedin.com/in/blakeledden">LinkedIn</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <article class="prose">
+      <div class="title">
+        <div class="date">Feb 4, 2026</div>
+        <h1>Better Prompts or a Better Model? Evolutionary Experiments Across Six LLMs</h1>
+      </div>
+
+      <div class="abstract">
+        <div class="abstract-label">TL;DR</div>
+        <p>I evolved LLM agent configurations across six models from 3.8B to 671B parameters (60 experiments, 10 seeds each) to measure when system optimization produces real gains on held-out test tasks. <strong>Small models (&lt;8B) genuinely benefit</strong> &mdash; Phi-4 Mini showed +4.5% calibration improvement (p&lt;0.001, d=1.85, 10/10 seeds positive). <strong>Frontier models don't</strong> &mdash; DeepSeek V3.1 sat at -0.1% with the tightest variance of any model. The middle is noisy.</p>
+      </div>
+
+      <!-- Key results stat cards -->
+      <div class="stat-row">
+        <div class="stat-card positive">
+          <div class="stat-value">+4.5%</div>
+          <div class="stat-label">Phi-4 Mini (3.8B)</div>
+        </div>
+        <div class="stat-card positive">
+          <div class="stat-value">+2.4%</div>
+          <div class="stat-label">Llama 3.1 (8B)</div>
+        </div>
+        <div class="stat-card neutral">
+          <div class="stat-value">+0.7%</div>
+          <div class="stat-label">Qwen 2.5 (14B)</div>
+        </div>
+        <div class="stat-card negative">
+          <div class="stat-value">-0.1%</div>
+          <div class="stat-label">DeepSeek V3.1 (671B)</div>
+        </div>
+      </div>
+
+      <p>When your AI system underperforms, should you optimize the system &mdash; prompts, reasoning strategies, temperature, confidence calibration &mdash; or just upgrade to a better model?</p>
+
+      <p>I built <a href="https://github.com/bledden/predictive-natural-selection">Predictive Natural Selection</a> to answer this empirically. It evolves populations of LLM agent configurations through natural selection, then measures whether evolved configurations outperform the raw model on held-out test tasks. The gap between evolved and raw performance tells you where to invest.</p>
+
+      <p>I ran 60 experiments across six models spanning 3.8B to 671B parameters, 10 seeds each, to find the threshold where system optimization stops being worth it.</p>
+
+      <hr>
+
+      <h2>The Setup</h2>
+
+      <p>Each experiment evolves a population of 10 agent "genomes" over 15 generations. A genome encodes:</p>
+
+      <ul>
+        <li><strong>System prompt</strong> (mutated via LLM-powered rewriting)</li>
+        <li><strong>Reasoning strategy</strong> (chain-of-thought, step-by-step, analogical, debate-self, first-principles, elimination)</li>
+        <li><strong>Confidence bias</strong> (systematic calibration adjustment, bounded to &plusmn;0.15)</li>
+        <li><strong>Temperature</strong> and <strong>risk tolerance</strong></li>
+      </ul>
+
+      <p>Fitness is scored with <strong>Brier score</strong> &mdash; a proper scoring rule where the optimal strategy is honest confidence reporting. This prevents evolution from gaming calibration through systematic bias, which was a problem I had to diagnose and fix during development (more on that below).</p>
+
+      <p>Tasks rotate each generation (seeded deterministically) so evolution can't memorize specific questions. A stratified 60/20/20 train/validation/test split ensures final metrics come from tasks evolution never saw.</p>
+
+      <p>All six models used the same 42 built-in tasks, same evolution parameters, same methodology. The only variable is the model.</p>
+
+      <h2>The Models</h2>
+
+      <table>
+        <tr>
+          <th>Model</th>
+          <th>Parameters</th>
+          <th>Category</th>
+          <th>Provider</th>
+        </tr>
+        <tr>
+          <td>Microsoft Phi-4 Mini</td>
+          <td>3.8B</td>
+          <td>Small</td>
+          <td>W&amp;B Inference</td>
+        </tr>
+        <tr>
+          <td>Meta Llama 3.1 8B</td>
+          <td>8B</td>
+          <td>Small</td>
+          <td>W&amp;B Inference</td>
+        </tr>
+        <tr>
+          <td>Qwen 2.5 14B</td>
+          <td>14B</td>
+          <td>Small-Medium</td>
+          <td>W&amp;B Inference</td>
+        </tr>
+        <tr>
+          <td>OpenAI GPT-OSS 20B</td>
+          <td>20B MoE</td>
+          <td>Medium</td>
+          <td>W&amp;B Inference</td>
+        </tr>
+        <tr>
+          <td>Meta Llama 3.3 70B</td>
+          <td>70B</td>
+          <td>Large</td>
+          <td>W&amp;B Inference</td>
+        </tr>
+        <tr>
+          <td>DeepSeek V3.1</td>
+          <td>671B MoE</td>
+          <td>Frontier</td>
+          <td>W&amp;B Inference</td>
+        </tr>
+      </table>
+
+      <hr>
+
+      <h2>Results</h2>
+
+      <p>The metric that matters is the <strong>test gap</strong>: evolved calibration minus raw calibration on held-out tasks. Positive means evolution helped. Negative means the raw model was already better.</p>
+
+      <!-- Visual bar chart -->
+      <div class="bar-chart">
+        <div class="bar-row">
+          <div class="bar-label">Phi-4 Mini<br><small style="color:rgb(var(--gray));font-weight:400">3.8B</small></div>
+          <div class="bar-track">
+            <div class="bar-fill zero-line"></div>
+            <div class="bar-fill positive" style="width: 22.5%"></div>
+            <span class="bar-val right" style="left: calc(50% + 22.5% + 4px)">+4.5%</span>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Llama 3.1<br><small style="color:rgb(var(--gray));font-weight:400">8B</small></div>
+          <div class="bar-track">
+            <div class="bar-fill zero-line"></div>
+            <div class="bar-fill positive" style="width: 12%"></div>
+            <span class="bar-val right" style="left: calc(50% + 12% + 4px)">+2.4%</span>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Qwen 2.5<br><small style="color:rgb(var(--gray));font-weight:400">14B</small></div>
+          <div class="bar-track">
+            <div class="bar-fill zero-line"></div>
+            <div class="bar-fill positive" style="width: 3.5%"></div>
+            <span class="bar-val right" style="left: calc(50% + 3.5% + 4px)">+0.7%</span>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">GPT-OSS<br><small style="color:rgb(var(--gray));font-weight:400">20B MoE</small></div>
+          <div class="bar-track">
+            <div class="bar-fill zero-line"></div>
+            <div class="bar-fill negative" style="width: 0.5%"></div>
+            <span class="bar-val right" style="left: calc(50% + 4px)">-0.1%</span>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Llama 3.3<br><small style="color:rgb(var(--gray));font-weight:400">70B</small></div>
+          <div class="bar-track">
+            <div class="bar-fill zero-line"></div>
+            <div class="bar-fill positive" style="width: 9.5%"></div>
+            <span class="bar-val right" style="left: calc(50% + 9.5% + 4px)">+1.9%</span>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">DeepSeek V3.1<br><small style="color:rgb(var(--gray));font-weight:400">671B MoE</small></div>
+          <div class="bar-track">
+            <div class="bar-fill zero-line"></div>
+            <div class="bar-fill negative" style="width: 0.5%"></div>
+            <span class="bar-val right" style="left: calc(50% + 4px)">-0.1%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Full results table -->
+      <table>
+        <tr>
+          <th>Model</th>
+          <th>Params</th>
+          <th>Mean Gap</th>
+          <th>Std</th>
+          <th>t-stat</th>
+          <th>Seeds +</th>
+          <th>Cohen's d</th>
+        </tr>
+        <tr>
+          <td>Phi-4 Mini</td>
+          <td>3.8B</td>
+          <td class="pos"><strong>+4.5%</strong></td>
+          <td>2.4%</td>
+          <td class="sig">5.85**</td>
+          <td class="pos">10/10</td>
+          <td class="sig">1.85</td>
+        </tr>
+        <tr>
+          <td>Llama 3.1</td>
+          <td>8B</td>
+          <td class="pos"><strong>+2.4%</strong></td>
+          <td>2.8%</td>
+          <td class="sig">2.66*</td>
+          <td>7/10</td>
+          <td>0.84</td>
+        </tr>
+        <tr>
+          <td>Qwen 2.5</td>
+          <td>14B</td>
+          <td>+0.7%</td>
+          <td>1.8%</td>
+          <td class="neu">1.29</td>
+          <td>8/10</td>
+          <td>0.41</td>
+        </tr>
+        <tr>
+          <td>GPT-OSS</td>
+          <td>20B MoE</td>
+          <td class="neg">-0.1%</td>
+          <td>4.3%</td>
+          <td class="neu">-0.05</td>
+          <td>6/10</td>
+          <td>-0.01</td>
+        </tr>
+        <tr>
+          <td>Llama 3.3</td>
+          <td>70B</td>
+          <td>+1.9%</td>
+          <td>3.2%</td>
+          <td class="neu">1.86</td>
+          <td>9/10</td>
+          <td>0.59</td>
+        </tr>
+        <tr>
+          <td>DeepSeek V3.1</td>
+          <td>671B MoE</td>
+          <td class="neg"><strong>-0.1%</strong></td>
+          <td>0.6%</td>
+          <td class="neu">-0.36</td>
+          <td>6/10</td>
+          <td>-0.11</td>
+        </tr>
+      </table>
+
+      <p style="font-size: 0.8em; color: rgb(var(--gray)); margin-top: -0.5em;">* p &lt; 0.05, ** p &lt; 0.001 (two-tailed t-test, df=9, n=10 seeds per model)</p>
+
+      <hr>
+
+      <h2>What This Actually Shows</h2>
+
+      <span class="section-num">Finding 1</span>
+      <div class="finding">
+        <p><strong>Phi-4 Mini (3.8B) genuinely benefits from system optimization.</strong> Every single seed (10/10) produced a positive test gap. Mean improvement of +4.5% with a Cohen's d of 1.85 &mdash; a large effect. Evolution found configurations that made this small model measurably more calibrated than its raw output on tasks it had never seen during training.</p>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat-card positive">
+          <div class="stat-value">10/10</div>
+          <div class="stat-label">Seeds positive</div>
+        </div>
+        <div class="stat-card positive">
+          <div class="stat-value">p &lt; 0.001</div>
+          <div class="stat-label">Paired t-test</div>
+        </div>
+        <div class="stat-card positive">
+          <div class="stat-value">d = 1.85</div>
+          <div class="stat-label">Cohen's d (large)</div>
+        </div>
+        <div class="stat-card neutral">
+          <div class="stat-value">&plusmn;2.4%</div>
+          <div class="stat-label">Std deviation</div>
+        </div>
+      </div>
+
+      <span class="section-num">Finding 2</span>
+      <div class="finding">
+        <p><strong>DeepSeek V3.1 (671B) does not benefit.</strong> Mean gap of -0.1% with the tightest variance of any model (&plusmn;0.6%). Evolution can't improve what's already near-optimal. The signal is effectively zero.</p>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat-card negative">
+          <div class="stat-value">6/10</div>
+          <div class="stat-label">Seeds positive</div>
+        </div>
+        <div class="stat-card neutral">
+          <div class="stat-value">t = -0.36</div>
+          <div class="stat-label">Not significant</div>
+        </div>
+        <div class="stat-card neutral">
+          <div class="stat-value">d = -0.11</div>
+          <div class="stat-label">Cohen's d (none)</div>
+        </div>
+        <div class="stat-card neutral">
+          <div class="stat-value">&plusmn;0.6%</div>
+          <div class="stat-label">Std deviation</div>
+        </div>
+      </div>
+
+      <p><strong>Llama 3.1 8B sits at the boundary.</strong> Statistically significant (t=2.66, p&lt;0.05) but with higher variance &mdash; three seeds went negative. The effect is real but less reliable than Phi-4.</p>
+
+      <p><strong>Everything from 14B up is inconclusive.</strong> Qwen 2.5 (14B), GPT-OSS (20B), and Llama 3.3 (70B) all have test gaps that don't reach significance. The means are small and the standard deviations are large relative to the effect.</p>
+
+      <hr>
+
+      <h2>The Honest Interpretation</h2>
+
+      <p>It would be satisfying to draw a clean curve &mdash; "below X billion parameters, optimize your system; above X, upgrade your model." The data doesn't support that clean of a story.</p>
+
+      <p>What it does support:</p>
+
+      <ol>
+        <li><strong>Very small models (&lt; 8B) have real optimization headroom.</strong> Phi-4 at 3.8B is the clearest case. If you're deploying a small model due to cost or latency constraints, investing in prompt engineering and system configuration will produce measurable gains.</li>
+        <li><strong>Frontier models are already near-optimal for calibration.</strong> DeepSeek V3.1 at 671B shows this clearly &mdash; the variance is so tight that we can confidently say evolution adds nothing. Don't waste time optimizing prompts for calibration on frontier models.</li>
+        <li><strong>The middle is noisy.</strong> Between 14B and 70B, the effect is inconsistent across seeds. This doesn't mean optimization never helps at these scales &mdash; it means 10 seeds and 42 tasks aren't enough to reliably detect what may be a small effect. The signal-to-noise ratio degrades as the true effect shrinks.</li>
+        <li><strong>The Llama 3.3 70B results are interesting but not conclusive.</strong> 9/10 seeds positive, mean of +1.9%, but the standard deviation (3.2%) keeps it from significance. This model might genuinely benefit from system optimization, or it might have more variable calibration that creates noisy gaps. More seeds would clarify.</li>
+      </ol>
+
+      <hr>
+
+      <h2>What the Evolved Agents Actually Learned</h2>
+
+      <p>For models where evolution helped, what traits did natural selection converge on?</p>
+
+      <p><strong>Phi-4 Mini</strong> showed no single dominant strategy &mdash; winning configurations split across debate-self, chain-of-thought, first-principles, analogical, and elimination. This suggests the model benefits from <em>any</em> structured reasoning, and the specific strategy matters less than having one at all.</p>
+
+      <p><strong>Llama 3.1 8B</strong> converged more strongly on chain-of-thought and elimination strategies across seeds, with debate-self and step-by-step as secondary winners.</p>
+
+      <p><strong>DeepSeek V3.1</strong>, where evolution didn't help, showed no convergence &mdash; strategies were scattered across first-principles, analogical, step-by-step, chain-of-thought, and elimination. When the model is already well-calibrated, no reasoning strategy provides a consistent edge.</p>
+
+      <hr>
+
+      <h2>The Overfitting Problem (And Why Methodology Matters)</h2>
+
+      <div class="callout">
+        <p><strong>Key insight:</strong> If you're evaluating prompt optimization or agent tuning with fixed evaluation sets and improper scoring rules, your improvements may be illusory. The system will find and exploit the gap between your metric and the thing you actually care about.</p>
+      </div>
+
+      <p>Before these results were possible, I had to fix a fundamental problem. Early experiments used a linear calibration metric (<code>1 - |predicted - outcome|</code>) and the same 8 tasks every generation. The results looked promising during training but fell apart on test:</p>
+
+      <table>
+        <tr>
+          <th>Model</th>
+          <th>Training Gap</th>
+          <th>Test Gap</th>
+        </tr>
+        <tr>
+          <td>DeepSeek V3</td>
+          <td class="pos">+6.2%</td>
+          <td class="neg"><strong>-17.8%</strong></td>
+        </tr>
+        <tr>
+          <td>GPT-4o</td>
+          <td>+0.2%</td>
+          <td class="neg"><strong>-24.0%</strong></td>
+        </tr>
+      </table>
+
+      <p>Evolution was gaming <code>confidence_bias</code> &mdash; learning to systematically shift confidence in a direction that improved the linear metric on the specific training tasks, then failing catastrophically on new tasks.</p>
+
+      <p>Four fixes:</p>
+
+      <ol>
+        <li><strong>Brier score</strong> (<code>1 - (predicted - outcome)&sup2;</code>) &mdash; a proper scoring rule where the mathematically optimal strategy is honest confidence reporting. You can't game it with systematic bias.</li>
+        <li><strong>Task rotation</strong> &mdash; different training tasks each generation, seeded deterministically. Evolution can't memorize specific questions.</li>
+        <li><strong>Tighter confidence_bias bounds</strong> &mdash; reduced from &plusmn;0.3 to &plusmn;0.15, and mutation step from &plusmn;0.1 to &plusmn;0.05.</li>
+        <li><strong>Larger task batches</strong> &mdash; 15 tasks per generation instead of 8.</li>
+      </ol>
+
+      <div class="stat-row">
+        <div class="stat-card negative">
+          <div class="stat-value">-17.8%</div>
+          <div class="stat-label">Before (linear scoring)</div>
+        </div>
+        <div class="stat-card positive">
+          <div class="stat-value">-0.7%</div>
+          <div class="stat-label">After (Brier score)</div>
+        </div>
+      </div>
+
+      <hr>
+
+      <h2>Limitations</h2>
+
+      <p><strong>42 tasks is small.</strong> The test split is only ~9 tasks per type. This creates high variance in test metrics, which is why the middle models are inconclusive. A larger, more diverse task bank would sharpen the picture.</p>
+
+      <p><strong>One task domain.</strong> All tasks are trivia, estimation, and reasoning. Models may show different optimization headroom on other domains &mdash; code generation, summarization, multi-turn dialogue. The framework supports custom task files (<code>--tasks-file</code>) for this reason.</p>
+
+      <p><strong>Parameter count isn't the only variable.</strong> These models differ in architecture (dense vs MoE), training data, instruction tuning quality, and base capabilities. The trend correlates with size but we can't isolate size as the cause. A controlled comparison would need multiple checkpoints of the same model at different scales.</p>
+
+      <p><strong>15 generations may be insufficient.</strong> Evolution might need more generations to find optimal configurations for larger models where the search space is less constrained. Though the tight DeepSeek variance suggests more generations wouldn't change that particular result.</p>
+
+      <p><strong>Calibration isn't everything.</strong> A model could benefit from system optimization on accuracy while showing no improvement on calibration. This study specifically measures calibration headroom.</p>
+
+      <hr>
+
+      <h2>Practical Takeaways</h2>
+
+      <div class="finding">
+        <div class="finding-label">Small Models (&lt; 8B params)</div>
+        <p>Invest in system optimization. Structured reasoning prompts, calibrated confidence estimates, and evolved configurations produce real gains. The ROI is positive.</p>
+      </div>
+
+      <div class="finding">
+        <div class="finding-label">Frontier Models</div>
+        <p>Don't bother optimizing for calibration. The model is already near-optimal. Spend that effort on better task decomposition, tool use, or retrieval instead &mdash; areas where system design still matters regardless of model capability.</p>
+      </div>
+
+      <div class="finding">
+        <div class="finding-label">Mid-size Models (14B&ndash;70B)</div>
+        <p>Test empirically before committing. The effect may exist but it's inconsistent. Run your own evaluation with your specific tasks before deciding whether to optimize or upgrade.</p>
+      </div>
+
+      <div class="callout">
+        <p><strong>If you're building eval pipelines:</strong> Use proper scoring rules. Use rotating task sets. Always hold out a test set that your optimization process never sees. If your training metrics improve but your test metrics don't, you have an overfitting problem, not a system optimization success.</p>
+      </div>
+
+      <hr>
+
+      <h2>Reproducing This</h2>
+
+      <p>All code, data, and experiment scripts are open source:</p>
+
+      <pre><code>git clone https://github.com/bledden/predictive-natural-selection.git
+cd predictive-natural-selection
+pip install -e .
+
+# Run the full comparison (requires W&amp;B API key or any OpenAI-compatible API)
+python scripts/run_model_comparison.py
+
+# Or test a single model
+python scripts/run_model_comparison.py --model phi4_mini --seeds 42
+
+# Run with your own tasks
+evolve run --model meta-llama/Llama-3.1-8B-Instruct --tasks-file my_tasks.json</code></pre>
+
+      <p>60 experiments, 10 seeds per model. Raw data in <code>data/model_comparison/</code>. Every claim in this post can be verified from the JSON output files.</p>
+
+      <hr>
+
+      <p style="text-align: center; color: rgb(var(--gray)); font-size: 0.9em;">
+        Built at <a href="https://weavehacks.com">WeaveHacks 3</a>. Models served via <a href="https://wandb.ai/site/inference">W&amp;B Inference</a>.
+      </p>
+
+    </article>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Blake Ledden. All rights reserved.</p>
+    <div class="social-links">
+      <a href="https://github.com/bledden">GitHub</a>
+      <a href="https://linkedin.com/in/blakeledden">LinkedIn</a>
+    </div>
+  </footer>
+</body>
+</html>

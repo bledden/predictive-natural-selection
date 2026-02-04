@@ -1,0 +1,25 @@
+{
+  "model": "Qwen/Qwen2.5-14B-Instruct",
+  "slug": "qwen25_14b",
+  "seed": 48,
+  "elapsed_seconds": 57.1,
+  "training": {
+    "initial_raw_cal": 0.8303833333333334,
+    "final_raw_cal": 0.87395,
+    "initial_evolved_cal": 0.8286633333333333,
+    "final_evolved_cal": 0.875086,
+    "gap": 0.0011360000000000259,
+    "initial_task_acc": 0.6866666666666666,
+    "final_task_acc": 0.8,
+    "initial_fitness": 0.7029313333333334,
+    "final_fitness": 0.7814516
+  },
+  "test": {
+    "raw_cal": 0.677611111111111,
+    "evolved_cal": 0.6851133333333334,
+    "gap": 0.007502222222222299,
+    "task_acc": 0.5555555555555556,
+    "best_fitness": 0.5998066666666666
+  },
+  "dominant_strategy": "elimination"
+}

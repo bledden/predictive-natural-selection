@@ -1,0 +1,76 @@
+[
+  {
+    "prompt": "What is the capital of France?",
+    "ground_truth": "Paris",
+    "task_type": "trivia",
+    "difficulty": 0.1,
+    "task_id": "geo_01"
+  },
+  {
+    "prompt": "What year did the Berlin Wall fall?",
+    "ground_truth": "1989",
+    "task_type": "trivia",
+    "difficulty": 0.3
+  },
+  {
+    "prompt": "What is the chemical formula for table salt?",
+    "ground_truth": "NaCl",
+    "task_type": "trivia",
+    "difficulty": 0.2,
+    "task_id": "chem_01"
+  },
+  {
+    "prompt": "What is the largest ocean on Earth?",
+    "ground_truth": "Pacific",
+    "task_type": "trivia",
+    "difficulty": 0.1
+  },
+  {
+    "prompt": "Estimate the population of Tokyo in millions (nearest integer).",
+    "ground_truth": "14",
+    "task_type": "estimation",
+    "difficulty": 0.5
+  },
+  {
+    "prompt": "Estimate the height of the Eiffel Tower in meters (nearest 10).",
+    "ground_truth": "330",
+    "task_type": "estimation",
+    "difficulty": 0.4
+  },
+  {
+    "prompt": "Estimate the number of countries in the United Nations (nearest 10).",
+    "ground_truth": "193",
+    "task_type": "estimation",
+    "difficulty": 0.5
+  },
+  {
+    "prompt": "Estimate the speed of light in km/s (nearest 1000).",
+    "ground_truth": "300000",
+    "task_type": "estimation",
+    "difficulty": 0.3
+  },
+  {
+    "prompt": "If all dogs are mammals and some mammals are pets, can we conclude that all dogs are pets? Answer Yes or No.",
+    "ground_truth": "No",
+    "task_type": "reasoning",
+    "difficulty": 0.6
+  },
+  {
+    "prompt": "A farmer has 17 sheep. All but 9 die. How many sheep are left?",
+    "ground_truth": "9",
+    "task_type": "reasoning",
+    "difficulty": 0.4
+  },
+  {
+    "prompt": "What is 15% of 200?",
+    "ground_truth": "30",
+    "task_type": "reasoning",
+    "difficulty": 0.2
+  },
+  {
+    "prompt": "If you rearrange the letters 'CIFAIPC' you get the name of which ocean?",
+    "ground_truth": "Pacific",
+    "task_type": "reasoning",
+    "difficulty": 0.5
+  }
+]

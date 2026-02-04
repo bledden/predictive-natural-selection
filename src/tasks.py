@@ -2,9 +2,15 @@
 
 from __future__ import annotations
 
+import json as _json
+import logging
 import random
+import warnings
 from dataclasses import dataclass
 from enum import Enum
+from pathlib import Path as _Path
+
+logger = logging.getLogger(__name__)
 
 
 class TaskType(str, Enum):
@@ -150,6 +156,100 @@ REASONING_TASKS = [
 
 ALL_TASKS = TRIVIA_TASKS + ESTIMATION_TASKS + REASONING_TASKS
 
+# ── Active task pool (mutable — defaults to built-in, replaced by load_tasks_from_file) ──
+_active_trivia: list[Task] = list(TRIVIA_TASKS)
+_active_estimation: list[Task] = list(ESTIMATION_TASKS)
+_active_reasoning: list[Task] = list(REASONING_TASKS)
+_active_all: list[Task] = list(ALL_TASKS)
+
+
+def set_task_pool(tasks: list[Task]) -> None:
+    """Replace the active task pool with a custom set of tasks.
+
+    Partitions tasks by type into the per-type pools.
+    Clears any cached splits/batches so they rebuild from the new pool.
+    """
+    global _active_trivia, _active_estimation, _active_reasoning, _active_all
+
+    _active_trivia = [t for t in tasks if t.task_type == TaskType.TRIVIA]
+    _active_estimation = [t for t in tasks if t.task_type == TaskType.ESTIMATION]
+    _active_reasoning = [t for t in tasks if t.task_type == TaskType.REASONING]
+    _active_all = list(tasks)
+
+    # Clear cached splits so they rebuild from new pool
+    _FIXED_TASK_SETS.clear()
+    _TRAIN_VAL_TEST_SPLITS.clear()
+
+
+def load_tasks_from_file(path: str) -> list[Task]:
+    """Load tasks from a JSON file and set them as the active task pool.
+
+    JSON format: list of objects with fields:
+      - prompt (required): The question text
+      - ground_truth (required): The correct answer
+      - task_type (optional): "trivia", "estimation", or "reasoning" (default: "reasoning")
+      - difficulty (optional): 0.0-1.0 (default: 0.5)
+      - task_id (optional): unique identifier (default: auto-generated)
+
+    Returns the loaded tasks.
+    Raises ValueError/FileNotFoundError for invalid input.
+    """
+    file_path = _Path(path)
+    if not file_path.exists():
+        raise FileNotFoundError(f"Tasks file not found: {path}")
+
+    with open(file_path) as f:
+        raw = _json.load(f)
+
+    if not isinstance(raw, list):
+        raise ValueError(f"Tasks file must contain a JSON array, got {type(raw).__name__}")
+
+    if len(raw) < 1:
+        raise ValueError("Tasks file must contain at least 1 task")
+
+    TYPE_MAP = {
+        "trivia": TaskType.TRIVIA,
+        "estimation": TaskType.ESTIMATION,
+        "reasoning": TaskType.REASONING,
+    }
+
+    tasks: list[Task] = []
+    for i, entry in enumerate(raw):
+        if not isinstance(entry, dict):
+            raise ValueError(f"Task {i}: expected object, got {type(entry).__name__}")
+        if "prompt" not in entry:
+            raise ValueError(f"Task {i}: missing required field 'prompt'")
+        if "ground_truth" not in entry:
+            raise ValueError(f"Task {i}: missing required field 'ground_truth'")
+
+        type_str = entry.get("task_type", "reasoning").lower()
+        task_type = TYPE_MAP.get(type_str, TaskType.REASONING)
+
+        difficulty = entry.get("difficulty", 0.5)
+        if not (0.0 <= float(difficulty) <= 1.0):
+            raise ValueError(f"Task {i}: difficulty must be 0.0-1.0, got {difficulty}")
+
+        task_id = entry.get("task_id", f"custom_{i + 1:03d}")
+
+        tasks.append(Task(
+            task_id=str(task_id),
+            task_type=task_type,
+            prompt=str(entry["prompt"]),
+            ground_truth=str(entry["ground_truth"]),
+            difficulty=float(difficulty),
+        ))
+
+    if len(tasks) < 10:
+        warnings.warn(
+            f"Only {len(tasks)} tasks loaded. For meaningful evolution, "
+            f"consider providing at least 15-20 tasks.",
+            stacklevel=2,
+        )
+
+    set_task_pool(tasks)
+    logger.info("Loaded %d custom tasks from %s", len(tasks), path)
+    return tasks
+
 
 def get_task_batch(n: int = 8, seed: int | None = None) -> list[Task]:
     """Get a diverse batch of tasks, mixing types.
@@ -161,11 +261,13 @@ def get_task_batch(n: int = 8, seed: int | None = None) -> list[Task]:
     rng = random.Random(seed)
     # ensure at least one of each type
     batch: list[Task] = []
-    for pool in [TRIVIA_TASKS, ESTIMATION_TASKS, REASONING_TASKS]:
-        batch.append(rng.choice(pool))
+    for pool in [_active_trivia, _active_estimation, _active_reasoning]:
+        if pool:
+            batch.append(rng.choice(pool))
     # fill the rest randomly
-    remaining = [t for t in ALL_TASKS if t not in batch]
-    batch.extend(rng.sample(remaining, min(n - 3, len(remaining))))
+    remaining = [t for t in _active_all if t not in batch]
+    fill_count = max(0, n - len(batch))
+    batch.extend(rng.sample(remaining, min(fill_count, len(remaining))))
     rng.shuffle(batch)
     return batch[:n]
 
@@ -208,7 +310,9 @@ def get_train_val_test_split(
     test_tasks: list[Task] = []
 
     # Stratified split: maintain type distribution in each set
-    for pool in [TRIVIA_TASKS, ESTIMATION_TASKS, REASONING_TASKS]:
+    for pool in [_active_trivia, _active_estimation, _active_reasoning]:
+        if not pool:
+            continue
         shuffled = list(pool)
         rng.shuffle(shuffled)
 
@@ -281,7 +385,7 @@ def get_fixed_task_batch(n: int = 8, run_seed: int = 42, split: str = "train") -
 
         # Get appropriate task pool based on split
         if split == "all":
-            task_pool = ALL_TASKS
+            task_pool = _active_all
         elif split == "train":
             train_tasks, _, _ = get_train_val_test_split(run_seed)
             task_pool = train_tasks

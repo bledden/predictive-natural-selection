@@ -96,9 +96,40 @@ evolve run --weave-project my-project
 # With OpenAI directly
 evolve run --model gpt-4o --base-url https://api.openai.com/v1 --api-key $OPENAI_API_KEY
 
+# Custom tasks from your domain
+evolve run --tasks-file my_tasks.json
+
 # Generate static visualizations from saved data
 evolve visualize
 ```
+
+### Custom Tasks
+
+By default, PNS evaluates agents on 42 built-in trivia, estimation, and reasoning tasks. To test with tasks relevant to your domain, provide a JSON file:
+
+```bash
+evolve run --tasks-file examples/custom_tasks.json
+```
+
+**JSON format:**
+
+```json
+[
+  {
+    "prompt": "What is the capital of France?",
+    "ground_truth": "Paris",
+    "task_type": "trivia",
+    "difficulty": 0.3,
+    "task_id": "geo_01"
+  }
+]
+```
+
+Only `prompt` and `ground_truth` are required. Defaults: `task_type="reasoning"`, `difficulty=0.5`, `task_id` auto-generated.
+
+Valid task types: `trivia`, `estimation`, `reasoning`. Provide at least 15-20 tasks for meaningful evolution.
+
+See [examples/custom_tasks.json](examples/custom_tasks.json) for a complete example.
 
 ### Run Dashboard
 

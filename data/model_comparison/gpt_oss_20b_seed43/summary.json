@@ -1,0 +1,25 @@
+{
+  "model": "openai/gpt-oss-20b",
+  "slug": "gpt_oss_20b",
+  "seed": 43,
+  "elapsed_seconds": 263.9,
+  "training": {
+    "initial_raw_cal": 0.8975920000000001,
+    "final_raw_cal": 0.8246146666666667,
+    "initial_evolved_cal": 0.8984913333333333,
+    "final_evolved_cal": 0.8186666666666667,
+    "gap": -0.005948000000000064,
+    "initial_task_acc": 0.8866666666666667,
+    "final_task_acc": 0.8266666666666667,
+    "initial_fitness": 0.8277614666666666,
+    "final_fitness": 0.7554666666666667
+  },
+  "test": {
+    "raw_cal": 0.7723622222222223,
+    "evolved_cal": 0.6895,
+    "gap": -0.08286222222222228,
+    "task_acc": 0.5222222222222223,
+    "best_fitness": 0.6024444444444444
+  },
+  "dominant_strategy": "debate-self"
+}

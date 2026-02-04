@@ -30,6 +30,7 @@ def run(
     weave_project: str = typer.Option("predictive-natural-selection", "--weave-project"),
     no_weave: bool = typer.Option(False, "--no-weave", help="Disable Weave tracing"),
     output_dir: str = typer.Option("data", "--output-dir", "-o", help="Output directory for plots"),
+    tasks_file: str = typer.Option(None, "--tasks-file", help="Path to custom tasks JSON file (default: built-in tasks)"),
 ):
     """Run a full evolutionary simulation.
 
@@ -40,14 +41,14 @@ def run(
       # W&B Inference (default)
       evolve run --model deepseek-ai/DeepSeek-V3.1
 
+      # Custom tasks
+      evolve run --tasks-file my_tasks.json
+
       # OpenAI direct
       evolve run --model gpt-4o --base-url https://api.openai.com/v1 --api-key $OPENAI_API_KEY
 
       # Local ollama
       evolve run --model llama3.3 --base-url http://localhost:11434/v1 --api-key ollama
-
-      # OpenRouter
-      evolve run --model google/gemini-2.5-flash-lite --base-url https://openrouter.ai/api/v1 --api-key $OPENROUTER_API_KEY
     """
     asyncio.run(_run_async(
         population_size=population,
@@ -63,6 +64,7 @@ def run(
         no_weave=no_weave,
         output_dir=output_dir,
         run_seed=seed,
+        tasks_file=tasks_file,
     ))
 
 
@@ -80,12 +82,19 @@ async def _run_async(
     no_weave: bool,
     output_dir: str,
     run_seed: int = 42,
+    tasks_file: str | None = None,
 ):
     from .evaluator import configure_client
     from .orchestrator import run_evolution
     from .population_store import PopulationStore
     from .visualization import generate_all_plots, generate_summary
     from .weave_integration import init_weave, trace_evolution_complete, trace_generation_summary
+
+    # Load custom tasks if provided
+    if tasks_file:
+        from .tasks import load_tasks_from_file
+        loaded = load_tasks_from_file(tasks_file)
+        console.print(f"[green]Custom tasks:[/green] Loaded {len(loaded)} tasks from {tasks_file}")
 
     # configure LLM client — fall back to OPENAI_API_KEY if no key provided
     if not api_key:

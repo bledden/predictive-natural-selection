@@ -325,6 +325,7 @@ async def live_evolution_run(
     population: int = 10,
     generations: int = 8,
     tasks: int = 15,
+    tasks_file: str | None = None,
 ):
     """Start a live evolution run and stream results as SSE."""
     global _live_run_active, _live_run_generation, _live_run_total
@@ -345,6 +346,11 @@ async def live_evolution_run(
             from .genome import AgentGenome
             from .population_store import PopulationStore
             from .tasks import get_rotating_task_batch
+
+            # Load custom tasks if provided
+            if tasks_file:
+                from .tasks import load_tasks_from_file
+                load_tasks_from_file(tasks_file)
 
             # configure LLM from env
             model = os.environ.get("MODEL_NAME", "deepseek-ai/DeepSeek-V3.1")

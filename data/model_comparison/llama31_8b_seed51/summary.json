@@ -1,0 +1,25 @@
+{
+  "model": "meta-llama/Llama-3.1-8B-Instruct",
+  "slug": "llama31_8b",
+  "seed": 51,
+  "elapsed_seconds": 84.3,
+  "training": {
+    "initial_raw_cal": 0.807738,
+    "final_raw_cal": 0.8058946666666666,
+    "initial_evolved_cal": 0.8058519999999999,
+    "final_evolved_cal": 0.8123373333333334,
+    "gap": 0.006442666666666708,
+    "initial_task_acc": 0.6066666666666667,
+    "final_task_acc": 0.6666666666666666,
+    "initial_fitness": 0.6613778666666666,
+    "final_fitness": 0.7007357333333333
+  },
+  "test": {
+    "raw_cal": 0.6927988888888889,
+    "evolved_cal": 0.7379722222222223,
+    "gap": 0.0451733333333334,
+    "task_acc": 0.4222222222222222,
+    "best_fitness": 0.6032644444444445
+  },
+  "dominant_strategy": "elimination"
+}

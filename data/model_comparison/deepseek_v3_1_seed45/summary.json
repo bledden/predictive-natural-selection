@@ -1,0 +1,25 @@
+{
+  "model": "deepseek-ai/DeepSeek-V3.1",
+  "slug": "deepseek_v3_1",
+  "seed": 45,
+  "elapsed_seconds": 161.2,
+  "training": {
+    "initial_raw_cal": 0.81565,
+    "final_raw_cal": 0.8996833333333333,
+    "initial_evolved_cal": 0.811882,
+    "final_evolved_cal": 0.8842153333333335,
+    "gap": -0.015467999999999815,
+    "initial_task_acc": 0.7133333333333334,
+    "final_task_acc": 0.7533333333333333,
+    "initial_fitness": 0.7391292,
+    "final_fitness": 0.7942625333333334
+  },
+  "test": {
+    "raw_cal": 0.8985833333333334,
+    "evolved_cal": 0.9009711111111112,
+    "gap": 0.0023877777777777665,
+    "task_acc": 0.8333333333333334,
+    "best_fitness": 0.8562533333333333
+  },
+  "dominant_strategy": "step-by-step"
+}
